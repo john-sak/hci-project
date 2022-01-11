@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>ΔΟΑΤΑΠ - Νέα Αίτηση</title>
+  <title>ΔΟΑΤΑΠ - Προφίλ</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../vendors/feather/feather.css">
   <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
@@ -102,25 +102,25 @@
             <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Νέα Αίτηση</h4>
-                  <form class="form-sample" method="post">
-                    <p class="card-description">
+                  <h2 class="card-title">Στοιχεία Προφίλ</h2>
+                  <form class="profile-sample" method="post">
+                    <h4 class="card-description">
                       Προσωπικές Πληροφορίες
-                    </p>
+                    </h4>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="name" class="col-sm-3 col-form-label">Όνομα*</label>
+                          <label for="name" class="col-sm-3 col-form-label">Όνομα</label>
                           <div class="col-sm-9">
-                            <input name="name" type="text" id="name" required class="form-control" />
+                            <input name="name" type="text" id="name" class="form-control" placeholder="ΟΝΟΜΑ"/>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="lname" class="col-sm-3 col-form-label">Επίθετο*</label>
+                          <label for="lname" class="col-sm-3 col-form-label">Επίθετο</label>
                           <div class="col-sm-9">
-                            <input name="lname" id="lname" type="text" required class="form-control" />
+                            <input name="lname" id="lname" type="text" class="form-control" placeholder="ΕΠΙΘΕΤΟ"/>
                           </div>
                         </div>
                       </div>
@@ -128,11 +128,11 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="gender" class="col-sm-3 col-form-label">Φύλο*</label>
+                          <label for="gender" class="col-sm-3 col-form-label">Φύλο</label>
                           <div class="col-sm-9">
                             <select id="gender" name="gender" class="form-control">
                               <option value="male">Άνδρας</option>
-                              <option value="female">Γυναίκα</option>
+                              <option selected value="female">Γυναίκα</option>
                               <option value="other">Άλλο</option>
                             </select>
                           </div>
@@ -140,39 +140,30 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="bday" class="col-sm-3 col-form-label">Ημ/νία Γέννησης*</label>
+                          <label for="bday" class="col-sm-3 col-form-label">Ημ/νία Γέννησης</label>
                           <div class="col-sm-9">
-                            <input id="bday" name="bday" type="date" class="form-control" required/>
+                            <input id="bday" name="bday" type="date" class="form-control" value="1992-07-22" min="1921-01-01" max="2003-01-01"/>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <p class="card-description">
-                      Πληροφορίες Ιδρύματος
-                    </p>
+                    <h4>
+                      Πληροφορίες Επικοινωνίας
+                    </h4>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="degree" class="col-sm-3 col-form-label">Επίπεδο Σπουδών*</label>
+                          <label for="addr" class="col-sm-3 col-form-label">Διεύθυνση</label>
                           <div class="col-sm-9">
-                            <select id="degree" name="degree" class="form-control">
-                              <option value="under">Προπτυχιακό</option>
-                              <option value="master">Μεταπτυχιακό</option>
-                              <option value=phd"">Διδακτορικό</option>
-                            </select>
+                            <input name="addr" type="text" id="addr" class="form-control" placeholder="ΔΙΕΥΘΥΝΣΗ"/>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="univ" class="col-sm-3 col-form-label">Ίδρυμα*</label>
+                          <label for="postal" class="col-sm-3 col-form-label">Ταχυδρομικός Κώδικας</label>
                           <div class="col-sm-9">
-                            <input type="text" list="uni" id="univ" name="univ" required>
-                            <datalist id="uni" >
-                              <option >Επιλογή 1</option>
-                              <option >Επιλογή 2</option>
-                              <option >Επιλογή 3</option>
-                            </datalist>
+                            <input name="postal" id="lname" type="postal" class="form-control" placeholder="ΤΑΧΥΔΡΟΜΙΚΟΣ ΚΩΔΙΚΑΣ"/>
                           </div>
                         </div>
                       </div>
@@ -180,70 +171,41 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="dep" class="col-sm-3 col-form-label">Τμήμα*</label>
+                          <label for="city" class="col-sm-3 col-form-label">Πόλη</label>
                           <div class="col-sm-9">
-                            <input type="text" list="department" id="dep" name="dep" required>
-                            <datalist id="department" >
-                              <option >Επιλογή 1</option>
-                              <option >Επιλογή 2</option>
-                              <option >Επιλογή 3</option>
-                            </datalist>
+                            <input name="city" type="text" id="city" class="form-control" placeholder="ΠΟΛΗ"/>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="country" class="col-sm-3 col-form-label">Χώρα*</label>
+                          <label for="country" class="col-sm-3 col-form-label">Χώρα</label>
                           <div class="col-sm-9">
-                            <input type="text" list="cou" id="country" name="country" required>
-                            <datalist id="cou" >
-                              <option >Επιλογή 1</option>
-                              <option >Επιλογή 2</option>
-                              <option >Επιλογή 3</option>
-                            </datalist>
+                            <input name="country" id="lname" type="country" class="form-control" placeholder="ΧΩΡΑ"/>
                           </div>
                         </div>
                       </div>
-                      <p class="card-description">
-                        Δικαιολογητικά
-                      </p>
+                    </div>
                     <div class="row">
-                      <div class="form-group">
-                        <label for="ID">Ταυτότητα ή Διαβατήριο*</label>
-                        <input id="ID" type="file" name="ID" class="file-upload-default">
-                        <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
-                          <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-primary" value="upload" name="uploadID" type="button">Upload File</button>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="form-group">
-                          <label for="degreefile">Τίτλος Σπουδών*</label>
-                          <input id="degreefile" type="file" name="degreefile" class="file-upload-default">
-                          <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
-                            <span class="input-group-append">
-                              <button class="file-upload-browse btn btn-primary" value="uploaddegree" name="uploaddegree" type="button">Upload File</button>
-                            </span>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label for="phone" class="col-sm-3 col-form-label">Τηλέφωνο Επικοινωνίας</label>
+                          <div class="col-sm-9">
+                            <input name="phone" type="text" id="phone" class="form-control" placeholder="ΤΗΛΕΦΩΝΟ"/>
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="form-group">
-                          <label for="courses">Πιστοποιητικό Μαθημάτων*</label>
-                          <input id="courses" type="file" name="courses" class="file-upload-default">
-                          <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
-                            <span class="input-group-append">
-                              <button class="file-upload-browse btn btn-primary" value="uploadcourses" name="uploadcourses" type="button">Upload File</button>
-                            </span>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label for="email" class="col-sm-3 col-form-label">Email Επικοινωνίας</label>
+                          <div class="col-sm-9">
+                            <input name="email" id="email" type="text" class="form-control" placeholder="EMAIL ΕΠΙΚΟΙΝΩΝΙΑΣ"/>
                           </div>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary me-2">Υποβολή</button>
-                      <button class="btn btn-light">Προσωρινή Αποθήκευση</button>
+                    </div>
+                    <button type="submit" class="btn btn-primary me-2">Αποθήκευση Αλλαγών</button>
+                    <button class="btn btn-light">Ακύρωση</button>
                   </form>
                 </div>
               </div>
