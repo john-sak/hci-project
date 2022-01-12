@@ -36,9 +36,6 @@
           <a class="navbar-brand brand-logo" href="../../../../index.html">
             <img src="../../../../assets/images/doapat_logo_black.png" alt="logo" />
           </a>
-          <a class="navbar-brand brand-logo-mini" href="../../../../index.html">
-            <img src="../../../../assets/images/doapat_logo_black.png" alt="logo" />
-          </a>
         </div>
       </div>
     </nav>
@@ -88,7 +85,7 @@
             </div>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/login.html">Έξοδος </a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../../../sign-up.html">Έξοδος </a></li>
               </ul>
             </div>
           </li>
@@ -106,6 +103,8 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
+          <!-- 3 possible states: approved where the user's application is approved, pending when the user should pass courses,
+          rejected where the user can see why  -->
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -119,47 +118,36 @@
                         <tr>
                           <th>Τύπος</th>
                           <th>#Πρωτοκόλλου</th>
-                          <th>Ημ/νία</th>
                           <th>Κατάσταση</th>
+                          <th>Λεπτομέρειες</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>Προπτυχιακό</td>
                           <td>53275534</td>
-                          <td>16 Μαΐου 2021</td>
                           <td><label class="badge badge-success">Εγκρίθηκε</label></td>
+                          <td>Ίδρυμα και Τμήμα ισοτιμίας</td>
                         </tr>
-                        <!-- <tr>
-                          <td>Messsy</td>
-                          <td>53275532</td>
-                          <td>15 May 2017</td>
-                          <td><label class="badge badge-warning">In progress</label></td>
-                        </tr> -->
                         <tr>
                           <td>Προπτυχιακό</td>
                           <td>53275533</td>
-                          <td>14 Μαΐου 2021</td>
                           <td><label class="badge badge-danger">Απορρίφθηκε</label></td>
+                          <td>Λόγοι Απόρριψης</td>
                         </tr>
                         <tr>
                           <td>Προπτυχιακό</td>
                           <td>53275531</td>
-                          <td>12 Μαΐου 2021</td>
-                          <td><label class="badge badge-danger">Απορρίφθηκε</label></td>
+                          <td><label class="badge badge-info">Εκκρεμής</label></td>
+                          <td>Τα μαθήματα που πρέπει να δώσει ο χρήστης</td>
                         </tr>
-                        <!-- <tr>
-                          <td>Dave</td>
-                          <td>53275535</td>
-                          <td>20 May 2017</td>
-                          <td><label class="badge badge-warning">In progress</label></td>
-                        </tr> -->
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
+            <!-- 2 possible states: pending where it can be edited, or submitted but not yet reviewed by admin where it can be previewed but not edited ,edit and preview should be links -->
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -173,22 +161,22 @@
                         <tr>
                           <th>Τύπος</th>
                           <th>#Πρωτοκόλλου</th>
-                          <th>Ημ/νια</th>
                           <th>Κατάσταση</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>Προπτυχιακό</td>
                           <td>53275536</td>
-                          <td >15 Μαΐου 2021</td>
-                          <td><label class="badge badge-info">Εκρεμμεί</label></td>
+                          <td><label class="badge badge-info">Εκκρεμεί</label></td>
+                          <td><a  href="../../pages/form/form.html" class="btn btn-outline-primary btn-sm" >Επεξεργασία</a></td>
                         </tr>
                         <tr>
                           <td>Μεταπτυχιακό</td>
                           <td>53275532</td>
-                          <td >15 Μαΐου 2021</td>
-                          <td><label class="badge badge-info">Εκρεμμεί</label></td>
+                          <td><label class="badge badge-success">Υποβλήθηκε</label></td>
+                          <td><a  href="../../pages/application-preview/application-preview.html" class="btn btn-outline-primary btn-sm" >Προεπισκόπηση</a></td>
                         </tr>
                       </tbody>
                     </table>
@@ -199,7 +187,6 @@
         <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <!-- <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span> -->
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
           </div>
         </footer>
