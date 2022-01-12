@@ -18,11 +18,11 @@
 				<form method="post" action="http://localhost/hci/sign-in-handler.php">
 					<div class="group">
 						<label for="user" class="label">Όνομα Χρήστη*</label>
-						<input id="user" type="text" class="input" name="user" required>
+						<input id="user" type="text" min="5" max="20" class="input" name="user" required>
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Κωδικός Πρόσβασης*</label>
-						<input id="pass" type="password" class="input" data-type="password" name ="pass" required>
+						<input id="pass" type="password" min="5" max="20" class="input" data-type="password" name ="pass" required>
 					</div>
 					<div class="group">
 						<input type="submit" class="button" value="Σύνδεση">
