@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>ΔΟΑΤΑΠ - Δημιουργία Λογαριασμού</title>
+  <link rel="shortcut icon" href="../assets/images/doatap_shortcut.png" type="image/x-icon" />
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'><link rel="stylesheet" href="./style.css">
+  <script defer src="./signup-scripts.js"></script>
+</head>
+<body>
+  <div class="container">
+  	<div class="header">
+  		<h2 style="text-align: center;">Δημιουργία Λογαριασμού</h2>
+      <h4 style="text-align: center;">Έχετε ήδη λογαριασμό; <a href="./sign-in.html">Σύνδεση</a></h4>
+  	</div>
+  	<form id="sign-up-form" class="form" action="http://localhost/hci/connect.php" method="post">
+  		<div class="form-control">
+  			<label for="name">Όνομα</label>
+  			<input type="text" placeholder="5-20 χαρακτήρες" id="name"/>
+  			<small>Error message</small>
+  		</div>
+  		<div class="form-control">
+  			<label for="lname">Επίθετο</label>
+  			<input type="text" placeholder="5-20 χαρακτήρες" id="lname"/>
+  			<small>Error message</small>
+  		</div>
+  		<div class="form-control">
+  			<label for="address">Διεύθυνση Μόνιμης Κατοικίας</label>
+  			<input type="text" placeholder="10-50 χαρακτήρες" id="address"/>
+  			<small>Error message</small>
+  		</div>
+  		<div class="form-control">
+  			<label for="email">Email Επικοινωνίας</label>
+  			<input type="text" placeholder="email@example.com" id="email"/>
+  			<small>Error message</small>
+  		</div>
+  		<div class="form-control">
+  			<label for="phone">Τηλέφωνο Επικοινωνίας</label>
+  			<input type="text" placeholder="10 χαρακτήρες" id="phone"/>
+  			<small>Error message</small>
+  		</div>
+  		<div class="form-control">
+  			<label for="username">Όνομα Χρήστη</label>
+  			<input type="text" placeholder="5-20 χαρακτήρες" id="username"/>
+  			<small>Error message</small>
+  		</div>
+  		<div class="form-control">
+  			<label for="password">Κωδικός Πρόσβασης</label>
+  			<input type="password" placeholder="5-20 χαρακτήρες" id="password"/>
+  			<small>Error message</small>
+  		</div>
+  		<div class="form-control">
+  			<label for="password2">Επανάληψη Κωδικού Πρόσβασης</label>
+  			<input type="password" placeholder="5-20 χαρακτήρες" id="password2"/>
+  			<small>Error message</small>
+  		</div>
+  		<div class="form-control">
+  			<label for="bday">Ημερομηνία Γέννησης</label>
+  			<input type="date" min="1922-01-01" max="2004-01-01" id="bday"/>
+  			<small>Error message</small>
+  		</div>
+  		<button type="submit">Δημιουργία Λογαριασμού</button>
+  	</form>
+  </div>
+</body>
