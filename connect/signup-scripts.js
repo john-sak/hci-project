@@ -80,7 +80,7 @@ function checkInputs() {
 	} else{
 		setSuccessFor(password2);
 	}
-	
+
 	setSuccessFor(bday);
 }
 
