@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>ΔΟΑΤΑΠ - Σύνδεση</title>
+  <link rel="shortcut icon" href="../assets/images/doatap_shortcut.png" type="image/x-icon" />
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'><link rel="stylesheet" href="./style.css">
+  <script defer src="./signin-scripts.js"></script>
+</head>
+<body>
+  <div class="container">
+  	<div class="header">
+  		<h2 style="text-align: center;">Σύνδεση</h2>
+      <h4 style="text-align: center;">Δεν έχετε λογαριασμό; <a href="./sign-up.html">Δημιουργία νέου</a></h4>
+  	</div>
+  	<form id="sign-in-form" class="form" action="http://localhost/hci/sign-in-handler.php" method="post">
+      <div class="form-control">
+  			<label for="username">Όνομα Χρήστη</label>
+  			<input type="text" placeholder="5-20 χαρακτήρες" name="username" id="username"/>
+  			<small>Error message</small>
+  		</div>
+  		<div class="form-control">
+  			<label for="password">Κωδικός Πρόσβασης</label>
+  			<input type="password" placeholder="5-20 χαρακτήρες" name="password" id="password"/>
+  			<small>Error message</small>
+  		</div>
+  		<button type="submit">Σύνδεση</button>
+  	</form>
+  </div>
+</body>
