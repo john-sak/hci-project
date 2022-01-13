@@ -27,25 +27,25 @@ function checkInputs() {
 	const password2Value = password2.value.trim();
 	const bdayValue = bday.value.trim();
 
-	if(nameValue.length < 5 || nameValue.length > 20) {
+	if (nameValue.length < 5 || nameValue.length > 20) {
 		setErrorFor(name, '5 έως 20 χαρακτήρες!');
 	} else {
 		setSuccessFor(name);
 	}
 
-	if(lnameValue.length < 5 || lnameValue.length > 20) {
+	if (lnameValue.length < 5 || lnameValue.length > 20) {
 		setErrorFor(lname, '5 έως 20 χαρακτήρες!');
 	} else {
 		setSuccessFor(lname);
 	}
 
-	if(addressValue.length < 5 || addressValue.length > 20) {
+	if (addressValue.length < 5 || addressValue.length > 20) {
 		setErrorFor(address, '10 έως 50 χαρακτήρες!');
 	} else {
 		setSuccessFor(address);
 	}
 
-	if(emailValue === '') {
+	if (emailValue === '') {
 		setErrorFor(email, 'Το email δεν μπορεί να είναι κενό!');
 	} else if (!isEmail(emailValue)) {
 		setErrorFor(email, 'Μη έγκυρη διεύθυνση email!');
@@ -53,7 +53,7 @@ function checkInputs() {
 		setSuccessFor(email);
 	}
 
-	if(phoneValue === '') {
+	if (phoneValue === '') {
 		setErrorFor(phone, 'Το τηλέφωνο δεν μπορεί να είναι κενό!');
 	} else if (!isPhone(phoneValue)) {
 		setErrorFor(phone, 'Μη έγκυρος αριθμός τηλεφώνου!');
@@ -61,26 +61,29 @@ function checkInputs() {
 		setSuccessFor(phone);
 	}
 
-	if(usernameValue.length < 5 || usernameValue.length > 20) {
+	if (usernameValue.length < 5 || usernameValue.length > 20) {
 		setErrorFor(username, '5 έως 20 χαρακτήρες!');
 	} else {
 		setSuccessFor(username);
 	}
 
-	if(passwordValue.length < 5 || passwordValue.length > 20) {
+	if (passwordValue.length < 5 || passwordValue.length > 20) {
 		setErrorFor(password, '5 έως 20 χαρακτήρες!');
 	} else {
 		setSuccessFor(password);
 	}
 
-	if(password2Value === '') {
+	if (password2Value === '') {
 		setErrorFor(password2, 'Το πεδίο δεν μπορεί να είναι κενό');
 	} else if(passwordValue !== password2Value) {
 		setErrorFor(password2, 'Οι κωδικοί πρόσβασης δεν ταιριάζουν!');
 	} else{
 		setSuccessFor(password2);
 	}
+	
+	setSuccessFor(bday);
 }
+
 
 function setErrorFor(input, message) {
 	const formControl = input.parentElement;
