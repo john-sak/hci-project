@@ -45,13 +45,16 @@
         <small>Error message</small>
       </div>
       <div class="form-control">
-        <label for="gender">Φύλο</label>
-        <input type="radio" name="gender" id="gender1"/>
-        <label for="gender1">Άνδρας</label>
-        <input type="radio" name="gender" id="gender2"/>
-        <label for="gender2">Γυναίκα</label>
-        <input type="radio" name="gender" id="gender3"/>
-        <label for="gender3">Άλλο</label>
+        <label for="gender">Φύλο</label><br>
+        <!-- <input type="radio" name="gender" value="male">Άνδρας
+        <input type="radio" name="gender" value="female">Γυναίκα
+        <input type="radio" name="gender" value="other">Άλλο -->
+        <select name="gender">
+          <option value="none" selected>Επιλέξτε Φύλο</option>
+          <option value="male">Άνδρας</option>
+          <option value="female">Γυναίκα</option>
+          <option value="other">Άλλο</option>
+        </select>
         <small>Error message</small>
       </div>
   		<div class="form-control">

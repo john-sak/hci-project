@@ -4,10 +4,11 @@ const lname = document.getElementById('lname');
 const address = document.getElementById('address');
 const email = document.getElementById('email');
 const phone = document.getElementById('phone');
+const bday = document.getElementById('bday');
+const gender = document.getElementById('gender');
 const username = document.getElementById('username');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
-const bday = document.getElementById('bday');
 
 form.addEventListener('submit', e => {
 	e.preventDefault();
@@ -22,10 +23,11 @@ function checkInputs() {
 	const addressValue = address.value.trim();
 	const emailValue = email.value.trim();
 	const phoneValue = phone.value.trim();
+	const bdayValue = bday.value.trim();
+	const genderValue = gender.value.trim();
 	const usernameValue = username.value.trim();
 	const passwordValue = password.value.trim();
 	const password2Value = password2.value.trim();
-	const bdayValue = bday.value.trim();
 
 	if (nameValue.length < 5 || nameValue.length > 20) {
 		setErrorFor(name, '5 έως 20 χαρακτήρες!');
@@ -61,6 +63,14 @@ function checkInputs() {
 		setSuccessFor(phone);
 	}
 
+	setSuccessFor(bday); // todo
+
+	if (genderValue === 'none') {
+		setErrorFor(gender, 'Επιλέξτε φύλο')
+	} else {
+		setSuccessFor(gender);
+	}
+
 	if (usernameValue.length < 5 || usernameValue.length > 20) {
 		setErrorFor(username, '5 έως 20 χαρακτήρες!');
 	} else {
@@ -81,7 +91,6 @@ function checkInputs() {
 		setSuccessFor(password2);
 	}
 
-	setSuccessFor(bday);
 }
 
 
