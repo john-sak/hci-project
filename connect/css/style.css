@@ -1,6 +1,14 @@
 body {
 	margin:  0;
 }
+.form-v10 .header {
+	text-align: center;
+	font-weight: 700;
+	color: white;
+	padding: 1px;
+	background-color: #4835d4;
+	font-size: 20px;
+}
 .page-content {
 	width: 100%;
 	margin:  0 auto;
@@ -34,7 +42,7 @@ body {
 	-ms-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 	-moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 	-webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-	margin: 95px 0;
+	margin: 80px 0;
 	position: relative;
 	font-family: 'Montserrat', sans-serif;
 }
@@ -54,8 +62,8 @@ body {
 .form-v10-content .form-detail h4 {
 	font-weight: 500;
 	font-size: 20px;
-	margin-bottom: 10px;
-	padding: 10px 50px 0px 60px;
+	margin-bottom: 0px;
+	padding: 0px 50px 0px 50px;
 }
 .form-v10-content .form-detail .form-left {
 	border-top-left-radius: 10px;
@@ -77,6 +85,9 @@ body {
 .form-v10-content .form-detail .form-right h2 {
 	color: #fff;
 }
+.form-v10-content .form-detail .form-right h4 {
+	color: #fff;
+}
 .form-v10-content .form-detail .form-group {
 	display: flex;
 	display: -webkit-flex;
@@ -87,14 +98,6 @@ body {
 	padding-left: 60px;
     padding-right: 50px;
 }
-/* .form-v10-content .form-detail .form-left .form-group .form-row.form-row-1 {
-	width: 50%;
-	padding: 0 12px 0 60px;
-}
-.form-v10-content .form-detail .form-left .form-group .form-row.form-row-2 {
-	width: 50%;
-	padding: 0 50px 0 12px;
-} */
 .form-v10-content .form-detail .form-left .form-group .form-row.form-row-1 {
 	width: 33%;
 	padding: 0 12px 0 60px;
@@ -107,10 +110,6 @@ body {
 	width: 33%;
 	padding: 0 50px 0 12px;
 }
-/* .form-v10-content .form-detail .form-left .form-group .form-row.form-row-3 {
-	width: 73%;
-	padding: 0 12px 0 60px;
-} */
 .form-v10-content .form-detail .form-left .form-group .form-row.form-row-4 {
 	width: 50%;
 	padding: 0 50px 0 12px;
