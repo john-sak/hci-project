@@ -33,9 +33,21 @@
       //set session vars
       $_SESSION['id'] = $result->fetch_assoc() ['ID'];
       $_SESSION['username'] = $username;
+      $result->data_seek(0);
+      $admin = $result->fetch_assoc() ['isAdmin'];
+      if($admin)
+        $_SESSION['admin'] = 1;
 			if(isset($_POST['register']) and isset($_SESSION['id']))
 			{ 
-			?>
+        if(isset($_SESSION['admin']))
+        {
+?>
+          <script type="text/javascript">
+            window.location = "../User/template/pages/admin-application/admin-application.html";
+          </script>
+        <?php  
+        }
+			  ?>
 				<script type="text/javascript">
 					window.location = "../User/template/pages/form/form.html";
 				</script>
