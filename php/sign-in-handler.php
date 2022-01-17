@@ -18,7 +18,7 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM `users` WHERE username='$username' and password='$password'";
+    $query = "SELECT * FROM users WHERE username='$username' and password=$password'";
     $result = $conn->query($query);
     if(!$result) die($conn->error);
 
