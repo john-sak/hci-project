@@ -8,7 +8,7 @@
   }
 
   //connect to db
-  $conn = new mysqli($hn,$un,"",$db);
+  $conn = new mysqli($hn,$un,$dp,$db);
 
   if($conn->connect_error) die($conn->connect_error);
 
