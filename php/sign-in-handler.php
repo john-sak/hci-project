@@ -1,11 +1,17 @@
 <?php
   require_once('db-credentials.php');
+
+  //start session if not started alreary
+  if(!session_id())
+  {
+    session_start();
+  }
+
   //connect to db
   $conn = new mysqli($hn,$un,"",$db);
 
   if($conn->connect_error) die($conn->connect_error);
-  //create session
-  session_start();
+
   if(isset($_POST['username']) and isset($_POST['password']))
   {
     //assign post values
@@ -23,7 +29,9 @@
     {
       //get the row
       $result->data_seek(0);
-      $_SESSION['id'] = $result->fetch_assoc() ['id'];
+      
+      //set session vars
+      $_SESSION['id'] = $result->fetch_assoc() ['ID'];
       $_SESSION['username'] = $username;
 			if(isset($_POST['register']) and isset($_SESSION['id']))
 			{ 
@@ -36,16 +44,18 @@
 
     }
 
-    //if there are no rows destroy session and exit
+    //if there are no rows exit
     else 
     { 
-      session_destroy(); 
       ?>
       <script type="text/javascript">
         window.location = "../connect/sign-in.html";
+        alert("Λάθος όνομα χρήστη ή κωδικός");
       </script>
   <?php
 
     }
+    //close connection
+    $conn -> close();
   }
 ?>
