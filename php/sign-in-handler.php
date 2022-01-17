@@ -1,7 +1,7 @@
 <?php
   require_once('db-credentials.php');
   //connect to db
-  $conn = new mysqli($hn,$un,"",$db);
+  $conn = new mysqli($hn, $un, $dp, $db);
 
   if($conn->connect_error) die($conn->connect_error);
   //create session
@@ -12,7 +12,7 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM `users` WHERE username='$username' and password='$password'";
+    $query = "SELECT * FROM users WHERE username='$username' and password=$password'";
     $result = $conn->query($query);
     if(!$result) die($conn->error);
 
@@ -26,7 +26,7 @@
       $_SESSION['id'] = $result->fetch_assoc() ['id'];
       $_SESSION['username'] = $username;
 			if(isset($_POST['register']) and isset($_SESSION['id']))
-			{ 
+			{
 			?>
 				<script type="text/javascript">
 					window.location = "../User/template/pages/form/form.html";
@@ -37,9 +37,9 @@
     }
 
     //if there are no rows destroy session and exit
-    else 
-    { 
-      session_destroy(); 
+    else
+    {
+      session_destroy();
       ?>
       <script type="text/javascript">
         window.location = "../connect/sign-in.html";
