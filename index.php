@@ -1,3 +1,13 @@
+<?php
+  //start session if not started alreary
+  if(!session_id())
+  {
+    session_start();
+  }
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -72,9 +82,22 @@
               <li class="scroll-to-section"><a href="#top" class="active">ΝΕΑ ΑΙΤΗΣΗ</a></li>
               <li class="scroll-to-section"><a href="#process">ΔΙΑΔΙΚΑΣΙΑ</a></li>
               <li class="scroll-to-section"><a href="#documents">ΔΙΚΑΙΛΟΓΗΤΙΚΑ</a></li>
-              <!-- <li class="scroll-to-section"><a href="#org">ΟΡΓΑΝΙΣΜΟΣ</a></li> -->
               <li class="scroll-to-section"><a href="#contact">ΕΠΙΚΟΙΝΩΝΙΑ</a></li>
-              <li class="scroll-to-section"><div class="border-first-button"><a href="connect/sign-in.html">ΣΥΝΔΕΣΗ</a></div></li>
+              <?php
+                //check if user is signed in
+                if(isset($_SESSION['id']))
+                {
+                  $username = $_SESSION['username'];
+                  if(isset($_SESSION['admin']))
+                    echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/admin-application/admin-application.html'>$username</a></div></li>";
+                  else
+                    echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/form/form.html'>$username</a></div></li>";
+                }
+                else
+                {
+                  echo " <li class='scroll-to-section'><div class='border-first-button'><a href='connect/sign-in.html'>ΣΥΝΔΕΣΗ</a></div></li>";
+                }
+              ?>
             </ul>
             <a class='menu-trigger'>
                 <span>Menu</span>
@@ -104,7 +127,19 @@
                   </div>
                   <div class="col-lg-12">
                     <div class="border-first-button scroll-to-section">
-                      <a href="connect/sign-in.html">Δημιουργία Αίτησης</a>
+                      <?php
+                        //check if user is signed in
+                        if(isset($_SESSION['id']))
+                        {
+                          if(isset($_SESSION['admin']))
+                            echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/admin-application/admin-application.html'>Εκκρεμείς Αιτήσεις</a></div></li>";
+                          else
+                            echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/form/form.html'>Δημιουργία Αίτησης</a></div></li>";
+                        }
+                        else
+                          echo "<a href='connect/sign-in.html'>Δημιουργία Αίτησης</a>";
+                      ?>
+                      
                     </div>
                   </div>
                 </div>

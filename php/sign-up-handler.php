@@ -1,51 +1,92 @@
 <?php
-require_once('db-credentials.php');
-if (isset($_POST['register'])) {
-  if (!isset($_POST['first_name']) || !isset($_POST['last_name']) || !isset($_POST['address']) || !isset($_POST['gender']) || !isset($_POST['day']) || !isset($_POST['month']) || !isset($_POST['year']) || !isset($_POST['email']) || !isset($_POST['phone']) || !isset($_POST['username']) || !isset($_POST['password'])) {
-    echo "All field are required.";
-    die();
+  require_once('db-credentials.php');
+
+  //start session if not started alreary
+  if(!session_id())
+  {
+    session_start();
   }
-  $firstName = $_POST['first_name'];
-  $lastName = $_POST['last_name'];
-  $address = $_POST['address'];
-  $gender = $_POST['gender'];
-  $bDay = $_POST['day'];
-  $bMonth = $_POST['month'];
-  $bYear = $_POST['year'];
-  $email = $_POST['email'];
-  $phone = $_POST['phone'];
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  // $admin = 0;
-  $conn = new mysqli($hn, $un, $dp, $dn);
-  if ($conn->connect_error) {
-      die('Could not connect to the database.');
-      die();
-  }
-  $Select = "SELECT email FROM users WHERE email = ? LIMIT 1";
-  $Insert = "INSERT INTO users (firstName, lastName, address, gender, birthDay, birthMonth, birthYear, email, phone, username, password, isAdmin) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  $stmt = $conn->prepare($Select);
-  $stmt->bind_param("s", $email);
-  $stmt->execute();
-  $stmt->bind_result($resultEmail);
-  $stmt->store_result();
-  $stmt->fetch();
-  $rnum = $stmt->num_rows;
-  if ($rnum == 0) {
-      $stmt->close();
-      $stmt = $conn->prepare($Insert);
-      $stmt->bind_param("ssssiiissssi", $firstName, $lastName, $address, $gender, $bDay, $bMonth, $bYear, $email, $phone, $username, $password, $admin);
-      if ($stmt->execute()) {
-          echo "New record inserted sucessfully.";
+
+  //connect to db
+  $conn = new mysqli($hn,$un,$dp,$db);
+
+  if($conn->connect_error) die($conn->connect_error);
+
+  if(isset($_POST))
+    {
+      //set form variables
+      $first_name = $_POST["first_name"];
+      $last_name = $_POST["last_name"];
+      $address = $_POST["address"];
+      $gender = $_POST["gender"];
+      $day = (int) $_POST["day"];
+      $month = (int) $_POST["month"];
+      $year = (int) $_POST["year"];
+      $email = $_POST["email"];
+      $phone = $_POST["phone"];
+      $username = $_POST["username"];
+      $password = $_POST["password"];
+      $password2 = $_POST["password2"];
+      $isAdmin = 0;
+
+      //check if passwords matches
+      if($password != $password2)
+      {
+?>
+        <script type="text/javascript">
+          window.location = "../connect/sign-up.html";
+          alert("Οι κωδικοί δεν ταιριάζουν");
+        </script>
+    <?php
+        exit();
       }
-      else {
-          echo $stmt->error;
+      //create query to check if username exists
+      $query = "SELECT * FROM `users` WHERE username='$username'";
+
+      $result = $conn->query($query);
+      //check if query failed
+      if(!$result) die($conn->error);
+      
+      $rows = $result->num_rows;
+
+      //check if username already exists in db
+      if($rows)
+      {
+    ?>
+        <script type="text/javascript">
+          window.location = "../connect/sign-up.html";
+          alert("Το όνομα χρήστη υπάρχει ήδη");
+        </script>
+    <?php
       }
-  }
-  else {
-      echo "Someone is already registered using this email.";
-  }
-  $stmt->close();
-  $conn->close();
-}
+      //free result
+      $result -> free_result();
+      //insert new user into db
+      $query = "INSERT INTO `users` (firstName,lastName,address,gender,birthDay,birthMonth,birthYear,email,phone,username,password,isAdmin) Values" .
+        "( '$first_name', '$last_name' , '$address' , '$gender' , '$day' , '$month' , '$year' , '$email' , '$phone', '$username' , '$password' , '$isAdmin')";
+      $result = $conn->query($query);
+      //check if query failed
+      if(!$result)  die($conn->error);
+
+      //get id
+      $query = "SELECT `ID` FROM `users` WHERE username='$username'";
+
+      $result = $conn->query($query);
+
+      if(!$result) die($conn->error);
+
+      //get the row
+      $result->data_seek(0);
+
+      //set session vars
+      $_SESSION['id'] = $result->fetch_assoc() ['ID'];
+      $_SESSION['username'] = $username;
+			?>
+				<script type="text/javascript">
+					window.location = "../User/template/pages/form/form.html";
+				</script>
+			<?php
+      //close connection
+			$conn -> close();
+    }
 ?>

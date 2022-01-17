@@ -1,11 +1,17 @@
 <?php
   require_once('db-credentials.php');
+
+  //start session if not started alreary
+  if(!session_id())
+  {
+    session_start();
+  }
+
   //connect to db
-  $conn = new mysqli($hn, $un, $dp, $db);
+  $conn = new mysqli($hn,$un,$dp,$db);
 
   if($conn->connect_error) die($conn->connect_error);
-  //create session
-  session_start();
+
   if(isset($_POST['username']) and isset($_POST['password']))
   {
     //assign post values
@@ -23,11 +29,25 @@
     {
       //get the row
       $result->data_seek(0);
-      $_SESSION['id'] = $result->fetch_assoc() ['id'];
+      
+      //set session vars
+      $_SESSION['id'] = $result->fetch_assoc() ['ID'];
       $_SESSION['username'] = $username;
+      $result->data_seek(0);
+      $admin = $result->fetch_assoc() ['isAdmin'];
+      if($admin)
+        $_SESSION['admin'] = 1;
 			if(isset($_POST['register']) and isset($_SESSION['id']))
-			{
-			?>
+			{ 
+        if(isset($_SESSION['admin']))
+        {
+?>
+          <script type="text/javascript">
+            window.location = "../User/template/pages/admin-application/admin-application.html";
+          </script>
+        <?php  
+        }
+			  ?>
 				<script type="text/javascript">
 					window.location = "../User/template/pages/form/form.html";
 				</script>
@@ -36,16 +56,18 @@
 
     }
 
-    //if there are no rows destroy session and exit
-    else
-    {
-      session_destroy();
+    //if there are no rows exit
+    else 
+    { 
       ?>
       <script type="text/javascript">
         window.location = "../connect/sign-in.html";
+        alert("Λάθος όνομα χρήστη ή κωδικός");
       </script>
   <?php
 
     }
+    //close connection
+    $conn -> close();
   }
 ?>
