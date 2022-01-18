@@ -46,7 +46,7 @@
       $result = $conn->query($query);
       //check if query failed
       if(!$result) die($conn->error);
-      
+
       $rows = $result->num_rows;
 
       //check if username already exists in db
@@ -83,7 +83,7 @@
       $_SESSION['username'] = $username;
 			?>
 				<script type="text/javascript">
-					window.location = "../User/template/pages/form/form.html";
+					window.location = "../User/template/pages/form/form.php";
 				</script>
 			<?php
       //close connection

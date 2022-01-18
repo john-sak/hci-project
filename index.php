@@ -91,7 +91,7 @@
                   if(isset($_SESSION['admin']))
                     echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/admin-application/admin-application.html'>$username</a></div></li>";
                   else
-                    echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/form/form.html'>$username</a></div></li>";
+                    echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/form/form.php'>$username</a></div></li>";
                 }
                 else
                 {
@@ -134,7 +134,7 @@
                           if(isset($_SESSION['admin']))
                             echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/admin-application/admin-application.html'>Εκκρεμείς Αιτήσεις</a></div></li>";
                           else
-                            echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/form/form.html'>Δημιουργία Αίτησης</a></div></li>";
+                            echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/form/form.php'>Δημιουργία Αίτησης</a></div></li>";
                         }
                         else
                           echo "<a href='connect/sign-in.html'>Δημιουργία Αίτησης</a>";

@@ -29,27 +29,30 @@
     {
       //get the row
       $result->data_seek(0);
-      
+
       //set session vars
       $_SESSION['id'] = $result->fetch_assoc() ['ID'];
       $_SESSION['username'] = $username;
       $result->data_seek(0);
       $admin = $result->fetch_assoc() ['isAdmin'];
+      $result->data_seek(0);
+      $namefromlogin = $result->fetch_assoc() ['fName'];
+      $_SESSION['name'] = $namefromlogin;
       if($admin)
         $_SESSION['admin'] = 1;
 			if(isset($_POST['register']) and isset($_SESSION['id']))
-			{ 
+			{
         if(isset($_SESSION['admin']))
         {
 ?>
           <script type="text/javascript">
             window.location = "../User/template/pages/admin-application/admin-application.html";
           </script>
-        <?php  
+        <?php
         }
 			  ?>
 				<script type="text/javascript">
-					window.location = "../User/template/pages/form/form.html";
+					window.location = "../User/template/pages/form/form.php";
 				</script>
 			<?php
 			}
@@ -57,8 +60,8 @@
     }
 
     //if there are no rows exit
-    else 
-    { 
+    else
+    {
       ?>
       <script type="text/javascript">
         window.location = "../connect/sign-in.html";

@@ -1,3 +1,10 @@
+<?php
+  // start session if not started already
+  if (!session_id()) {
+    session_start();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -57,7 +64,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="../../pages/form/form.html">Δημιουργία Νέας Αίτησης</a></li>
+                <li class="nav-item"><a class="nav-link" href="../../pages/form/form.php">Δημιουργία Νέας Αίτησης</a></li>
               </ul>
             </div>
           </li>
@@ -109,8 +116,15 @@
                         <div class="form-group row">
                           <label for="name" class="col-sm-3 col-form-label">Όνομα</label>
                           <div class="col-sm-9">
-                            <input name="name" type="text" id="name"  class="form-control" value="name from db" readonly />
-                          </div>
+                          <?php
+                            if (isset($_SESSION['id'])) {
+                              $fName = $_SESSION['name'];
+                              echo "<input name='name' type='text' id='name'  class='form-control' value='$fName' readonly />";
+                            } else {
+                              echo "<input name='name' type='text' id='name'  class='form-control' value='name from db' readonly />";
+                            }
+                          ?>
+                        </div>
                         </div>
                       </div>
                       <div class="col-md-6">
