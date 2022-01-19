@@ -1,3 +1,11 @@
+<?php
+  require_once('../../../../php/db-credentials.php');
+  // start session if not started already
+  if (!session_id()) {
+    session_start();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -68,7 +76,7 @@
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/user-application/user-apllication.html">Οι Αιτήσεις Μου</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/user-application/user-application.php">Οι Αιτήσεις Μου</a></li>
               </ul>
             </div>
           </li>
@@ -99,6 +107,16 @@
         </ul>
       </nav>
       <!-- partial -->
+      <?php
+        $conn = new mysqli($hn, $un, $dp, $db);
+        if ($conn->connect_error) die ($conn->connect_error);
+        $id = $_SESSION['id'];
+        $query = "SELECT * FROM forms WHERE userID=$id AND (status='accepted' OR status='rejected')";
+        $resultDONE = $conn->query($query);
+        $query = "SELECT * FROM forms WHERE userID=$id AND (status='waiting' OR status='pending' OR status='saved')";
+        $resultPENDING = $conn->query($query);
+        $conn->close();
+      ?>
       <!--Data Should come from db.Maybe status be a link to open ex the form for process-->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -117,30 +135,44 @@
                       <thead>
                         <tr>
                           <th>Τύπος</th>
-                          <th>#Πρωτοκόλλου</th>
+                          <th>ID Αίτησης</th>
                           <th>Κατάσταση</th>
                           <th>Λεπτομέρειες</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Προπτυχιακό</td>
-                          <td>53275534</td>
-                          <td><label class="badge badge-success">Εγκρίθηκε</label></td>
-                          <td>Ίδρυμα και Τμήμα ισοτιμίας</td>
-                        </tr>
-                        <tr>
-                          <td>Προπτυχιακό</td>
-                          <td>53275533</td>
-                          <td><label class="badge badge-danger">Απορρίφθηκε</label></td>
-                          <td>Λόγοι Απόρριψης</td>
-                        </tr>
-                        <tr>
-                          <td>Προπτυχιακό</td>
-                          <td>53275531</td>
-                          <td><label class="badge badge-info">Εκκρεμής</label></td>
-                          <td>Τα μαθήματα που πρέπει να δώσει ο χρήστης</td>
-                        </tr>
+                        <?php
+                          while ($row = $resultDONE->fetch_row()) {
+                            echo "<tr>";
+                            if ($row[1] == "under") {
+                              $degree = "Προπτυχιακό";
+                            } else if ($row[1] == "master") {
+                              $degree = "Μεταπτυχιακό";
+                            } else {
+                              $degree = "Διδακτορικό";
+                            }
+                            echo "<td>$degree</td>";
+                            echo "<td>$row[0]</td>";
+                            if ($row[5] == "accepted") {
+                              echo "<td><label class='badge badge-success'>Εγκρίθηκε</label></td>";
+                              $conn = new mysqli($hn, $un, $dp, $db);
+                              $query = "SELECT uniID from greekDepts WHERE ID=$row[9]";
+                              $result = $conn->query($query);
+                              if ($result->num_rows != 1) die(); // todo
+                              $id = $result->fetch_row() [0];
+                              $query = "SELECT name FROM greekUnis WHERE ID=$id";
+                              $result = $conn->query($query);
+                              if ($result->num_rows != 1) die(); // todo
+                              $result = $result->fetch_row();
+                              $conn->close();
+                              echo "<td>$row[9], $result[0]</td>";
+                            } else {
+                              echo "<td><label class='badge badge-danger'>Απορρίφθηκε</label></td>";
+                              echo "<td>$row[6]</td>";
+                            }
+                            echo "</tr>";
+                          }
+                        ?>
                       </tbody>
                     </table>
                   </div>
@@ -160,24 +192,37 @@
                       <thead>
                         <tr>
                           <th>Τύπος</th>
-                          <th>#Πρωτοκόλλου</th>
+                          <th>ID Αίτησης</th>
                           <th>Κατάσταση</th>
                           <th></th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Προπτυχιακό</td>
-                          <td>53275536</td>
-                          <td><label class="badge badge-info">Εκκρεμεί</label></td>
-                          <td><a  href="../../pages/form/form.php" class="btn btn-outline-primary btn-sm" >Επεξεργασία</a></td>
-                        </tr>
-                        <tr>
-                          <td>Μεταπτυχιακό</td>
-                          <td>53275532</td>
-                          <td><label class="badge badge-success">Υποβλήθηκε</label></td>
-                          <td><a  href="../../pages/application-preview/application-preview.html" class="btn btn-outline-primary btn-sm" >Προεπισκόπηση</a></td>
-                        </tr>
+                        <?php
+                        while ($row = $resultPENDING->fetch_row()) {
+                          echo "<tr>";
+                          if ($row[1] == "under") {
+                            $degree = "Προπτυχιακό";
+                          } else if ($row[1] == "master") {
+                            $degree = "Μεταπτυχιακό";
+                          } else {
+                            $degree = "Διδακτορικό";
+                          }
+                          echo "<td>$degree</td>";
+                          echo "<td>$row[0]</td>";
+                          if ($row[5] == "pending") {
+                            echo "<td><label class='badge badge-info'>Σε εκκρεμότητα</label></td>";
+                            echo "<td>Τα μαθήματα που πρέπει να δώσει ο χρήστης</td>";
+                          } else if ($row[5] == "waiting") {
+                            echo "<td><label class='badge badge-info'>Σε αναμονή</label></td>";
+                            echo "<td><a href='../../pages/application-preview/application-preview.html' class='btn btn-outline-primary btn-sm'>Επισκόπηση</a></td>";
+                          } else {
+                            echo "<td><label class='badge badge-info'>Προσωρινή Αποθήκευση</label></td>";
+                            echo "<td><a href='../../pages/form/form.php' class='btn btn-outline-primary btn-sm'>Επεξεργασία</a></td>";
+                          }
+                          echo "</tr>";
+                        }
+                        ?>
                       </tbody>
                     </table>
                   </div>
