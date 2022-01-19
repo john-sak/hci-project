@@ -118,10 +118,10 @@
                           <div class="col-sm-9">
                           <?php
                             if (isset($_SESSION['id'])) {
-                              $fName = $_SESSION['name'];
-                              echo "<input name='name' type='text' id='name'  class='form-control' value='$fName' readonly />";
+                              $fName = $_SESSION['fName'];
+                              echo "<input name='name' type='text' id='name' class='form-control' value='$fName' readonly />";
                             } else {
-                              echo "<input name='name' type='text' id='name'  class='form-control' value='name from db' readonly />";
+                              echo "<input name='name' type='text' id='name' class='form-control' value='name from db' readonly />";
                             }
                           ?>
                         </div>
@@ -131,7 +131,14 @@
                         <div class="form-group row">
                           <label for="lname" class="col-sm-3 col-form-label">Επίθετο</label>
                           <div class="col-sm-9">
-                            <input name="lname" id="lname" type="text"  class="form-control" value="surname from db" readonly />
+                          <?php
+                          if (isset($_SESSION['id'])) {
+                            $lName = $_SESSION['lName'];
+                            echo "<input name='lname' type='text' id='lname' class='form-control' value='$lName' readonly />";
+                          } else {
+                            echo "<input name='lname' type='text' id='lname' class='form-control' value='lname from db' readonly />";
+                          }
+                          ?>
                           </div>
                         </div>
                       </div>
@@ -141,7 +148,14 @@
                         <div class="form-group row">
                           <label for="gender" class="col-sm-3 col-form-label">Φύλο</label>
                           <div class="col-sm-9">
-                            <input name="gender" id="gender" type="text"  class="form-control" value="gender from db" readonly />
+                            <?php
+                            if (isset($_SESSION['id'])) {
+                              $gender = $_SESSION['gender'];
+                              echo "<input name='gender' id='gender' type='text' class='form-control' value='$gender' readonly />";
+                            } else {
+                              echo "<input name='gender' id='gender' type='text' class='form-control' value='gender from db' readonly />";
+                            }
+                            ?>
                           </div>
                         </div>
                       </div>
@@ -149,7 +163,16 @@
                         <div class="form-group row">
                           <label for="bday" class="col-sm-3 col-form-label">Ημ/νία Γέννησης</label>
                           <div class="col-sm-9">
-                            <input id="bday" name="bday" type="text" class="form-control" value="bday from db" readonly/>
+                            <?php
+                            if (isset($_SESSION['id'])) {
+                              $bD = $_SESSION['bDay'];
+                              $bM = $_SESSION['bMonth'];
+                              $bY = $_SESSION['bYear'];
+                              echo "<input name='bday' id='bday' type='text' class='form-control' value='$bD/$bM/$bY' readonly />";
+                            } else {
+                              echo "<input name='bday' id='bday' type='text' class='form-control' value='bday from db' readonly />";
+                            }
+                            ?>
                           </div>
                         </div>
                       </div>

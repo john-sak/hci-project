@@ -18,7 +18,7 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM users WHERE username='$username' and password='$password'";
+    $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
     $result = $conn->query($query);
     if(!$result) die($conn->error);
 
@@ -28,21 +28,25 @@
     if($rows == 1)
     {
       //get the row
-      $result->data_seek(0);
+      $row = $result->fetch_row();
 
       //set session vars
-      $_SESSION['id'] = $result->fetch_assoc() ['ID'];
+      $_SESSION['id'] = $row[0];
+      $_SESSION['fName'] = $row[1];
+      $_SESSION['lName'] = $row[2];
+      $_SESSION['address'] = $row[3];
+      $_SESSION['gender'] = $row[4];
+      $_SESSION['bDay'] = $row[5];
+      $_SESSION['bMonth'] = $row[6];
+      $_SESSION['bYear'] = $row[7];
+      $_SESSION['email'] = $row[8];
+      $_SESSION['phone'] = $row[9];
       $_SESSION['username'] = $username;
-      $result->data_seek(0);
-      $admin = $result->fetch_assoc() ['isAdmin'];
-      $result->data_seek(0);
-      $namefromlogin = $result->fetch_assoc() ['fName'];
-      $_SESSION['name'] = $namefromlogin;
-      if($admin)
-        $_SESSION['admin'] = 1;
+      $_SESSION['passowrd'] = $password;
+      $_SESSION['admin'] = $row[12];
 			if(isset($_POST['register']) and isset($_SESSION['id']))
 			{
-        if(isset($_SESSION['admin']))
+        if($_SESSION['admin'] == 1)
         {
 ?>
           <script type="text/javascript">
