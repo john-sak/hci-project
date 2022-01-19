@@ -1,4 +1,5 @@
 <?php
+  require_once('../../../../php/db-credentials.php');
   // start session if not started already
   if (!session_id()) {
     session_start();
@@ -107,7 +108,7 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Νέα Αίτηση</h4>
-                  <form class="form-sample" method="post">
+                  <form class="form-sample" method="get" action="/">
                     <p class="card-description">
                       Προσωπικές Πληροφορίες
                     </p>
@@ -151,6 +152,13 @@
                             <?php
                             if (isset($_SESSION['id'])) {
                               $gender = $_SESSION['gender'];
+                              if ($gender == "m") {
+                                $gender = "Άνδρας";
+                              } else if ($gender == "f") {
+                                $gender = "Γυναίκα";
+                              } else {
+                                $gender = "Άλλο";
+                              }
                               echo "<input name='gender' id='gender' type='text' class='form-control' value='$gender' readonly />";
                             } else {
                               echo "<input name='gender' id='gender' type='text' class='form-control' value='gender from db' readonly />";
@@ -186,22 +194,58 @@
                           <label for="degree" class="col-sm-3 col-form-label">Επίπεδο Σπουδών*</label>
                           <div class="col-sm-9">
                             <select id="degree" name="degree" class="form-control">
+                              <option value="none" selected>Επιλέξτε</option>
                               <option value="under">Προπτυχιακό</option>
                               <option value="master">Μεταπτυχιακό</option>
-                              <option value=phd"">Διδακτορικό</option>
+                              <option value="phd">Διδακτορικό</option>
                             </select>
+                            <?php
+                              // echo "<select id='degree' name='degree' class='form-control' onclick='submit'>";
+                              // if (isset($_POST['degree'])) {
+                              //   if ($_POST['degree'] == "under") {
+                              //     echo "<option value='under' selected>Προπτυχιακό</option>";
+                              //     echo "<option value='master'>Μεταπτυχιακό</option>";
+                              //     echo "<option value='phd'>Διδακτορικό</option>";
+                              //   } else if ($_POST['degree'] == "master") {
+                              //     echo "<option value='under'>Προπτυχιακό</option>";
+                              //     echo "<option value='master' selected>Μεταπτυχιακό</option>";
+                              //     echo "<option value='phd'>Διδακτορικό</option>";
+                              //   } else {
+                              //     echo "<option value='under'>Προπτυχιακό</option>";
+                              //     echo "<option value='master'>Μεταπτυχιακό</option>";
+                              //     echo "<option value='phd' selected>Διδακτορικό</option>";
+                              //   }
+                              // } else {
+                              //   echo "<option value='none' selected>Επιλέξτε</option>";
+                              //   echo "<option value='under'>Προπτυχιακό</option>";
+                              //   echo "<option value='master'>Μεταπτυχιακό</option>";
+                              //   echo "<option value='phd'>Διδακτορικό</option>";
+                              // }
+                              // echo "</select>";
+                            ?>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="univ" class="col-sm-3 col-form-label">Χώρα*</label>
+                          <label for="country" class="col-sm-3 col-form-label">Χώρα*</label>
                           <div class="col-sm-9">
-                            <input type="text" list="uni"  id="univ" name="univ"class="form-control" >
-                            <datalist id="uni" >
-                              <option >Επιλογή 1</option>
-                              <option >Επιλογή 2</option>
-                              <option >Επιλογή 3</option>
+                            <input type="text" list="cou" id="country" name="country" class="form-control" on>
+                            <datalist id="cou" >
+                              <?php
+                                $conn = new mysqli($hn, $un, $dp, $db);
+                                if ($conn->connect_error) die ($conn->connect_error);
+                                $query = "SELECT name FROM countries";
+                                // $query = "SELECT * FROM countries";
+                                $result = $conn->query($query);
+                                if (!$result) die($conn->error);
+                                $row = $result->fetch_row();
+                                while ($row = $result->fetch_row()) {
+                                  echo "<option>$row[0]</option>";
+                                  // echo "<option value='$row[0]'>$row[1]</option>";
+                                }
+                                $conn->close();
+                              ?>
                             </datalist>
                           </div>
                         </div>
@@ -210,26 +254,46 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="dep" class="col-sm-3 col-form-label">Ίδρυμα*</label>
+                          <label for="uni" class="col-sm-3 col-form-label">Ίδρυμα*</label>
                           <div class="col-sm-9">
-                            <input type="text" list="department" id="dep" name="dep" class="form-control">
-                            <datalist id="department" >
-                              <option >Επιλογή 1</option>
-                              <option >Επιλογή 2</option>
-                              <option >Επιλογή 3</option>
+                            <input type="text" list="uni" id="university" name="university" class="form-control">
+                            <datalist id="uni" >
+                              <?php
+                              $conn = new mysqli($hn, $un, $dp, $db);
+                              if ($conn->connect_error) die ($conn->connect_error);
+                              $query = "SELECT name FROM foreignUnis";
+                              $result = $conn->query($query);
+                              if (!$result) die($conn->error);
+                              $row = $result->fetch_row();
+                              while ($row = $result->fetch_row()) {
+                                echo "<option>$row[0]</option>";
+                                // echo "<option value='$row[0]'>$row[1]</option>";
+                              }
+                              $conn->close();
+                              ?>
                             </datalist>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="country" class="col-sm-3 col-form-label">Τμήμα*</label>
+                          <label for="department" class="col-sm-3 col-form-label">Τμήμα*</label>
                           <div class="col-sm-9">
-                            <input type="text" list="cou" id="country" name="country" class="form-control" >
-                            <datalist id="cou" >
-                              <option >Επιλογή 1</option>
-                              <option >Επιλογή 2</option>
-                              <option >Επιλογή 3</option>
+                            <input type="text" list="dep" id="department" name="department" class="form-control" >
+                            <datalist id="dep" >
+                              <?php
+                              $conn = new mysqli($hn, $un, $dp, $db);
+                              if ($conn->connect_error) die ($conn->connect_error);
+                              $query = "SELECT name FROM foreignDepts";
+                              $result = $conn->query($query);
+                              if (!$result) die($conn->error);
+                              $row = $result->fetch_row();
+                              while ($row = $result->fetch_row()) {
+                                echo "<option>$row[0]</option>";
+                                // echo "<option value='$row[0]'>$row[1]</option>";
+                              }
+                              $conn->close();
+                              ?>
                             </datalist>
                           </div>
                         </div>

@@ -75,6 +75,6 @@
 
     }
     //close connection
-    $conn -> close();
+    $conn->close();
   }
 ?>
