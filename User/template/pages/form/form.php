@@ -332,7 +332,7 @@
                     <div class="row">
                       <div class="form-group">
                         <label for="ID">Ταυτότητα ή Διαβατήριο*</label>
-                        <input id="ID" type="file" name="ID" class="file-upload-default">
+                        <input id="ID" type="file" name="ID" class="file-upload-default" onchange="this.form.submit()">
                         <div class="input-group col-xs-12">
                           <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
                           <span class="input-group-append">
@@ -343,7 +343,7 @@
                       <div class="row">
                         <div class="form-group">
                           <label for="degreefile">Τίτλος Σπουδών*</label>
-                          <input id="degreefile" type="file" name="degreefile" class="file-upload-default">
+                          <input id="degreefile" type="file" name="degreefile" class="file-upload-default" onchange="this.form.submit()">
                           <div class="input-group col-xs-12">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
                             <span class="input-group-append">
@@ -355,7 +355,7 @@
                       <div class="row">
                         <div class="form-group">
                           <label for="courses">Πιστοποιητικό Μαθημάτων*</label>
-                          <input id="courses" type="file" name="courses" class="file-upload-default">
+                          <input id="courses" type="file" name="courses" class="file-upload-default" onchange="this.form.submit()">
                           <div class="input-group col-xs-12">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
                             <span class="input-group-append">
@@ -364,8 +364,8 @@
                           </div>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary me-2">Υποβολή</button>
-                      <button type="submit" class="btn btn-light">Προσωρινή Αποθήκευση</button>
+                      <button type="submit" class="btn btn-primary me-2" value="submit" formaction="../../../../php/submit-form.php">Υποβολή</button>
+                      <button type="submit" class="btn btn-light" value="save" formaction="../../../../php/save-form.php">Προσωρινή Αποθήκευση</button>
                   </form>
                 </div>
               </div>
