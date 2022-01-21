@@ -111,10 +111,10 @@
         $conn = new mysqli($hn, $un, $dp, $db);
         if ($conn->connect_error) die ($conn->connect_error);
         $id = $_SESSION['id'];
-        $query = "SELECT * FROM forms WHERE userID=$id AND (status='accepted' OR status='rejected')";
+        $query = "SELECT * FROM forms WHERE userID=$id AND (status='accepted' OR status='rejected' OR status='pending')";
         $resultDONE = $conn->query($query);
-        $query = "SELECT * FROM forms WHERE userID=$id AND (status='waiting' OR status='pending' OR status='saved')";
-        $resultPENDING = $conn->query($query);
+        $query = "SELECT * FROM forms WHERE userID=$id AND (status='waiting' OR status='saved')";
+        $resultWAIT = $conn->query($query);
         $conn->close();
       ?>
       <!--Data Should come from db.Maybe status be a link to open ex the form for process-->
@@ -156,19 +156,26 @@
                             if ($row[5] == "accepted") {
                               echo "<td><label class='badge badge-success'>Εγκρίθηκε</label></td>";
                               $conn = new mysqli($hn, $un, $dp, $db);
+                              $query = "SELECT name FROM greekDepts WHERE ID=$row[9]";
+                              $result = $conn->query($query);
+                              if ($result->num_rows != 1) die(); // todo error message
+                              $name = $result->fetch_row() [0];
                               $query = "SELECT uniID from greekDepts WHERE ID=$row[9]";
                               $result = $conn->query($query);
-                              if ($result->num_rows != 1) die(); // todo
+                              if ($result->num_rows != 1) die(); // todo error message
                               $id = $result->fetch_row() [0];
                               $query = "SELECT name FROM greekUnis WHERE ID=$id";
                               $result = $conn->query($query);
-                              if ($result->num_rows != 1) die(); // todo
+                              if ($result->num_rows != 1) die(); // todo error message
                               $result = $result->fetch_row();
                               $conn->close();
-                              echo "<td>$row[9], $result[0]</td>";
-                            } else {
+                              echo "<td>$name, $result[0]</td>";
+                            } else if ($row[5] == "rejected") {
                               echo "<td><label class='badge badge-danger'>Απορρίφθηκε</label></td>";
                               echo "<td>$row[6]</td>";
+                            } else {
+                              echo "<td><label class='badge badge-info'>Σε εκκρεμότητα</label></td>";
+                              echo "<td>Τα μαθήματα που πρέπει να δώσει ο χρήστης</td>"; // todo show courses user needs to pass
                             }
                             echo "</tr>";
                           }
@@ -199,7 +206,7 @@
                       </thead>
                       <tbody>
                         <?php
-                        while ($row = $resultPENDING->fetch_row()) {
+                        while ($row = $resultWAIT->fetch_row()) {
                           echo "<tr>";
                           if ($row[1] == "under") {
                             $degree = "Προπτυχιακό";
@@ -210,14 +217,11 @@
                           }
                           echo "<td>$degree</td>";
                           echo "<td>$row[0]</td>";
-                          if ($row[5] == "pending") {
-                            echo "<td><label class='badge badge-info'>Σε εκκρεμότητα</label></td>";
-                            echo "<td>Τα μαθήματα που πρέπει να δώσει ο χρήστης</td>";
-                          } else if ($row[5] == "waiting") {
-                            echo "<td><label class='badge badge-info'>Σε αναμονή</label></td>";
+                          if ($row[5] == "waiting") {
+                            echo "<td><label style='color:orange; border-color:orange' class='badge badge-info'>Σε αναμονή</label></td>";
                             echo "<td><a href='../../pages/application-preview/application-preview.html' class='btn btn-outline-primary btn-sm'>Επισκόπηση</a></td>";
                           } else {
-                            echo "<td><label class='badge badge-info'>Προσωρινή Αποθήκευση</label></td>";
+                            echo "<td><label style='color:purple; border-color:purple' class='badge badge-info'>Προσωρινή Αποθήκευση</label></td>";
                             echo "<td><a href='../../pages/form/form.php' class='btn btn-outline-primary btn-sm'>Επεξεργασία</a></td>";
                           }
                           echo "</tr>";

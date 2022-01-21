@@ -25,10 +25,10 @@
   $degree = $_POST['deg'];
   $department = intval($_POST['dep']);
 
-  // $query = "INSERT INTO forms (eduLevel, identification, diploma, certificate, status, rejectReason, userID, foreignDeptID, greekDeptID) Values ($degree, '_', '_', '_', 'waiting', NULL, $id, $department, NULL)";
-  // $result = $conn->query($query);
-  //check if query failed
-  // if(!$result)  die($conn->error);
+  $query = "INSERT INTO forms (eduLevel, status, userID, foreignDeptID) VALUES ('$degree', 'waiting', $id, $department)";
+  $result = $conn->query($query);
+  // check if query failed
+  if(!$result)  die($conn->error);
   ?>
   <script type="text/javascript">
     window.location = "../User/template/pages/user-application/user-application.php"
