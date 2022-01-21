@@ -1,3 +1,14 @@
+<?php
+    require_once('../../../../php/db-credentials.php');
+  //start session if not started alreary
+  if(!session_id())
+  {
+    session_start();
+  }
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -54,7 +65,7 @@
                         </a>
                         <div class="collapse" id="tables">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../../pages/admin-application/admin-application.html">Εκκρεμείς Αιτήσεις</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="../../pages/admin-application/admin-application.php">Εκκρεμείς Αιτήσεις</a></li>
                             </ul>
                         </div>
                     </li>
@@ -73,7 +84,14 @@
                 </ul>
             </nav>
             <!-- partial -->
-            <!--Data Should come from db.Maybe status be a link to open ex the form for process-->
+            <?php
+                $conn = new mysqli($hn, $un, $dp, $db);
+                if ($conn->connect_error) die ($conn->connect_error);
+                $query = "SELECT * FROM forms WHERE status='saved'";
+                $result = $conn->query($query);
+                $conn->close();
+            ?>
+
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="col-lg-12 grid-margin stretch-card">
@@ -85,27 +103,38 @@
                                         <thead>
                                             <tr>
                                                 <th>Τύπος</th>
-                                                <th>#Πρωτοκόλλου</th>
+                                                <th>ID Αίτησης</th>
                                                 <th>Όνομα</th>
                                                 <th>Επίθετο</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Προπτυχιακό</td>
-                                                <td>53275536</td>
-                                                <td>Όνομα</td>
-                                                <td>Επίθετο</td>
-                                                <td><a  href="../../pages/admin-application-preview/admin-application-preview.html" class="btn btn-outline-primary btn-sm" >Προεπισκόπηση</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Μεταπτυχιακό</td>
-                                                <td>53275532</td>
-                                                <td>Όνομα</td>
-                                                <td>Επίθετο</td>
-                                                <td><a  href="../../pages/admin-application-preview/admin-application-preview.html" class="btn btn-outline-primary btn-sm" >Προεπισκόπηση</a></td>
-                                            </tr>
+                                            <?php
+                                                while ($row = $result->fetch_row()) {
+                                                    echo "<tr>";
+                                                    if ($row[1] == "under") {
+                                                        $degree = "Προπτυχιακό";
+                                                    } else if ($row[1] == "master") {
+                                                        $degree = "Μεταπτυχιακό";
+                                                    } else {
+                                                        $degree = "Διδακτορικό";
+                                                    }
+                                                    echo "<td>$degree</td>";
+                                                    $applicationID = $row[0];
+                                                    echo "<td>$applicationID</td>";
+                                                    $conn = new mysqli($hn, $un, $dp, $db);
+                                                    if ($conn->connect_error) die ($conn->connect_error);
+                                                    $query = "SELECT * FROM Users WHERE ID=$applicationID";
+                                                    $userResult = $conn->query($query);
+                                                    if (!$userResult) die($conn->error);
+                                                    $conn->close();
+                                                    $userData = $userResult->fetch_row();
+                                                    echo "<td>$userData[1]</td>";
+                                                    echo "<td>$userData[2]</td>";
+                                                    echo"<td><a  href='../../pages/admin-application-preview/admin-application-preview.php?ID=$applicationID' class='btn btn-outline-primary btn-sm' >Προεπισκόπηση</a></td>";
+                                                }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>

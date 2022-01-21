@@ -1,3 +1,11 @@
+<?php
+    require_once('../../../../php/db-credentials.php');
+    // start session if not started already
+    if (!session_id()) {
+        session_start();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -54,7 +62,7 @@
                         </a>
                         <div class="collapse" id="tables">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../../pages/admin-application/admin-application.html">Εκκρεμείς Αιτήσεις</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="../../pages/admin-application/admin-application.php">Εκκρεμείς Αιτήσεις</a></li>
                             </ul>
                         </div>
                     </li>
@@ -79,29 +87,39 @@
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Αίτηση #ΑρΠρωτοκ</h4>
-                                <form method="post" class="form-sample">
+                                <form method="post" class="form-sample" action="../../../../php/admin-pending-handler.php">
+                                    <div class="form-group">
+                                        <label for="status">ID Αίτησης</label>
+                                        <?php
+                                            if(isset($_GET['ID']))
+                                            {
+                                                $id = $_GET['ID'];
+                                            }
+                                            echo "<input type='text' class='form-control' id='id' name='id' readonly value=$id>";
+                                        ?>
+                                    </div>
                                     <div class="form-group">
                                         <label for="status">Κατάσταση</label>
-                                        <input type="text" class="form-control" id="status" name="status" readonly value="Εγκρίθηκε">                                                  
+                                        <input type="text" class="form-control" id="status" name="status" readonly value="Εκκρεμής">                                                  
                                     </div>
-                                    <div class="form-group">
-                                        <label for="uni">Ίδρυμα</label>
-                                        <select name="uni" id="uni" class="form-control">
-                                            <option value="Επιλογή 1">Επιλογή 1</option>
-                                            <option value="Επιλογή 2">Επιλογή 2</option>
-                                            <option value="Επιλογή 3">Επιλογή 3</option>
-                                        </select>                                          
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="dep">Τμήμα</label>
-                                        <select name="dep" id="dep" class="form-control">
-                                            <option value="Επιλογή 1">Επιλογή 1</option>
-                                            <option value="Επιλογή 2">Επιλογή 2</option>
-                                            <option value="Επιλογή 3">Επιλογή 3</option>
-                                        </select>                                          
-                                    </div>
-                                    <a class="btn btn-light me-2" href="../admin-application/admin-application.html">Ακύρωση</a>
+                                    <h5>Μαθήματα Για Απόκτηση Αναγνώρισης</h5>
+                                    <?php
+                                        $conn = new mysqli($hn, $un, $dp, $db);
+                                        if ($conn->connect_error) die ($conn->connect_error);
+                                        $query = "SELECT * FROM courses";
+                                        $result = $conn->query($query);
+                                        if (!$result) die($conn->error);
+                                        $conn->close();
+                                        while($row = $result->fetch_row())
+                                        {
+                                            echo "<div class='form-group'>";
+                                            echo "<label for=$row[0]>$row[1]</label>";
+                                            echo "<input type='checkbox'  id=$row[0] name=$row[0] value=$row[0]>";
+                                            echo "</div>";
+                                        }
+                                        
+                                    ?>
+                                    <a class="btn btn-light me-2" href="../admin-application/admin-application.php">Ακύρωση</a>
                                     <button type="submit" class="btn btn-primary me-2">Υποβολή</button>
                                 </form>
                             </div>

@@ -1,3 +1,12 @@
+<?php
+    require_once('../../../../php/db-credentials.php');
+    // start session if not started already
+    if (!session_id()) {
+        session_start();
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -54,7 +63,7 @@
                         </a>
                         <div class="collapse" id="tables">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../../pages/admin-application/admin-application.html">Εκκρεμείς Αιτήσεις</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="../../pages/admin-application/admin-application.php">Εκκρεμείς Αιτήσεις</a></li>
                             </ul>
                         </div>
                     </li>
@@ -72,24 +81,62 @@
                     </li>
                 </ul>
             </nav>
-            <!-- partial -->
-            <!--Data Should come from db.Maybe status be a link to open ex the form for process-->
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Αίτηση #ΑρΠρωτοκ</h4>
-                                <form method="post" class="form-sample">
+                                <form method="post" action="../../../../php/admin-approve-handler.php" class="form-sample">
+                                    <div class="form-group">
+                                    <label for="id">ID Αίτησης</label>
+                                    <?php
+                                        if(isset($_GET['ID']))
+                                        {
+                                            $id = $_GET['ID'];
+                                        }
+                                        echo "<input type='text' class='form-control' id='id' name='id' readonly value=$id>";
+                                    ?>
+                                    </div>
                                     <div class="form-group">
                                         <label for="status">Κατάσταση</label>
-                                        <input type="text" class="form-control" id="status" name="status" readonly value="Αππορίφθηκε">                                                  
+                                        <input type="text" class="form-control" id="status" name="status" readonly value="Εγκρίθηκε">                                                  
                                     </div>
                                     <div class="form-group">
-                                        <label for="reason">Λόγοι Απόρριψης</label>
-                                        <input type="textbox" class="form-control" id="reason" name="reason" required>                                                  
+                                        <label for="uni">Ίδρυμα</label>
+                                        <?php
+                                            echo "<select id='uni' name='uni' class='form-control'>";
+                                            $conn = new mysqli($hn, $un, $dp, $db);
+                                            if ($conn->connect_error) die ($conn->connect_error);
+                                            $query = "SELECT * FROM greekunis";
+                                            $result = $conn->query($query);
+                                            if (!$result) die($conn->error);
+                                            $row = $result->fetch_row();
+                                            $conn->close();
+                                            echo "<option value='none' selected>Επιλέξτε</option>";
+                                            while ($row = $result->fetch_row())
+                                                echo "<option value='$row[0]'>$row[1]</option>";
+                                            echo "</select>";
+                                        ?>                                          
                                     </div>
-                                    <a class="btn btn-light me-2" href="../admin-application/admin-application.html">Ακύρωση</a>
+                                    <div class="form-group">
+                                    <label for="dep">Τμήμα</label>
+                                        <?php
+                                            // todo selection based on uni
+                                            echo "<select id='dep' name='dep' class='form-control'>";
+                                            $conn = new mysqli($hn, $un, $dp, $db);
+                                            if ($conn->connect_error) die ($conn->connect_error);
+                                            $query = "SELECT * FROM greekdepts";
+                                            $result = $conn->query($query);
+                                            if (!$result) die($conn->error);
+                                            $row = $result->fetch_row();
+                                            $conn->close();
+                                            echo "<option value='none' selected>Επιλέξτε</option>";
+                                            while ($row = $result->fetch_row()) 
+                                                echo "<option value='$row[0]'>$row[1]</option>";
+                                            echo "</select>";
+                                        ?>
+                                    </div>
+                                    <a class="btn btn-light me-2" href="../admin-application/admin-application.php">Ακύρωση</a>
                                     <button type="submit" class="btn btn-primary me-2">Υποβολή</button>
                                 </form>
                             </div>

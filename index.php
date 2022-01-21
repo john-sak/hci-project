@@ -88,8 +88,8 @@
                 if(isset($_SESSION['id']))
                 {
                   $username = $_SESSION['username'];
-                  if(isset($_SESSION['admin']))
-                    echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/admin-application/admin-application.html'>$username</a></div></li>";
+                  if($_SESSION['admin'] == 1)
+                    echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/admin-application/admin-application.php'>$username</a></div></li>";
                   else
                     echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/form/form.php'>$username</a></div></li>";
                 }
@@ -131,8 +131,8 @@
                         //check if user is signed in
                         if(isset($_SESSION['id']))
                         {
-                          if(isset($_SESSION['admin']))
-                            echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/admin-application/admin-application.html'>Εκκρεμείς Αιτήσεις</a></div></li>";
+                          if($_SESSION['admin'] == 1)
+                            echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/admin-application/admin-application.php'>Εκκρεμείς Αιτήσεις</a></div></li>";
                           else
                             echo "<li class='scroll-to-section'><div class='border-first-button'><a href='User/template/pages/form/form.php'>Δημιουργία Αίτησης</a></div></li>";
                         }

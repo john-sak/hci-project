@@ -1,3 +1,11 @@
+<?php
+    require_once('../../../../php/db-credentials.php');
+    // start session if not started already
+    if (!session_id()) {
+        session_start();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -57,7 +65,7 @@
                         </a>
                         <div class="collapse" id="tables">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../../pages/admin-application/admin-application.html">Εκκρεμείς Αιτήσεις</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="../../pages/admin-application/admin-application.php">Εκκρεμείς Αιτήσεις</a></li>
                             </ul>
                         </div>
                     </li>
@@ -74,13 +82,39 @@
                         </div>
                     </li>
                 </ul>
-            </nav>   
+            </nav>
+            <?php
+            if(isset($_GET['ID']))
+            {
+                $id = $_GET['ID'];
+                $conn = new mysqli($hn, $un, $dp, $db);
+                if ($conn->connect_error) die ($conn->connect_error);
+                $query = "SELECT * FROM forms WHERE ID=$id";
+                $result = $conn->query($query);
+                $row = $result->fetch_row();
+                $query = "SELECT * FROM Users WHERE ID=$row[7]";
+                $userResult = $conn->query($query);
+                $userRow = $userResult->fetch_row();
+                $query = "SELECT * FROM foreigndepts WHERE ID=$row[8]";
+                $deptResult = $conn->query($query);
+                $deptRow = $deptResult->fetch_row();
+                $query = "SELECT * FROM foreignunis WHERE ID=$deptRow[2]";
+                $uniResult = $conn->query($query);
+                $uniRow = $uniResult-> fetch_row();
+                $query = "SELECT * FROM countries WHERE ID=$uniRow[2]";
+                $countryResult = $conn->query($query);
+                $countryRow = $countryResult->fetch_row();;
+                $conn->close();
+            }
+            ?>
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Αίτηση #ΑρΠρωτοκ</h4>
+                                <?php
+                                    echo "<h4 class='card-title'>Αίτηση $id</h4>";
+                                ?>
                                 <p class="card-description">
                                     Προσωπικές Πληροφορίες
                                 </p>
@@ -89,7 +123,9 @@
                                         <div class="form-group row">
                                             <label for="name" class="col-sm-3 col-form-label">Όνομα</label>
                                             <div class="col-sm-9">
-                                                <input name="name" type="text" id="name" class="form-control" readonly value="get name from db"/>
+                                                <?php
+                                                echo "<input name='name' type='text' id='name' class='form-control' readonly value=$userRow[1]>";
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +133,9 @@
                                         <div class="form-group row">
                                             <label for="lname" class="col-sm-3 col-form-label">Επίθετο</label>
                                             <div class="col-sm-9">
-                                                <input name="lname" id="lname" type="text"  class="form-control" readonly value="get surname from db" />
+                                                <?php
+                                                echo "<input name='lname' id='lname' type='text'  class='form-control' readonly value=$userRow[2]>";
+                                                ?>                                           
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +145,17 @@
                                         <div class="form-group row">
                                             <label for="gender" class="col-sm-3 col-form-label">Φύλο</label>
                                             <div class="col-sm-9">
-                                                <input name="gender" id="gender" type="text"  class="form-control" readonly value="get gender from db" />
+                                                <?php
+                                                    $gender = $userRow[4];
+                                                    if ($gender == "m") {
+                                                        $gender = "Άνδρας";
+                                                    } else if ($gender == "f") {
+                                                        $gender = "Γυναίκα";
+                                                    } else {
+                                                        $gender = "Άλλο";
+                                                    }
+                                                echo "<input name='gender' id='gender' type='text' class='form-control' value='$gender' readonly />";
+                                                ?>                                            
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +163,12 @@
                                         <div class="form-group row">
                                             <label for="bday" class="col-sm-3 col-form-label">Ημ/νία Γέννησης</label>
                                             <div class="col-sm-9">
-                                                <input id="bday" name="bday" type="date" class="form-control" readonly value="get date from db"/>
+                                                <?php
+                                                $bD = $userRow[5];
+                                                $bM = $userRow[6];
+                                                $bY = $userRow[7];
+                                                echo "<input name='bday' id='bday' type='text' class='form-control' value='$bD/$bM/$bY' readonly />";
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +181,9 @@
                                         <div class="form-group row">
                                             <label for="degree" class="col-sm-3 col-form-label">Επίπεδο Σπουδών</label>
                                             <div class="col-sm-9">
-                                                <input name="degree" id="degree" type="text"  class="form-control" readonly value="get degree from db" />
+                                                <?php
+                                                    echo "<input name='degree'id='degree' type='text'  class='form-control' readonly value=$row[1]>";
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -136,7 +191,9 @@
                                         <div class="form-group row">
                                             <label for="univ" class="col-sm-3 col-form-label">Ίδρυμα</label>
                                             <div class="col-sm-9">
-                                                <input type="text"  id="univ" name="univ" class="form-control" readonly value="get institute from db"/>
+                                                <?php
+                                                    echo "<input type='text'  id='univ' name='univ' class='form-control' readonly value=$uniRow[1]>";
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -146,15 +203,19 @@
                                         <div class="form-group row">
                                             <label for="dep" class="col-sm-3 col-form-label">Τμήμα</label>
                                             <div class="col-sm-9">
-                                                <input type="text"  id="dep" name="dep" class="form-control" readonly value="get department from db">
+                                                <?php
+                                                    echo "<input type='text'  id='dep' name='dep' class='form-control' readonly value=$deptRow[1]>";
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group row">
-                                            <label for="country" class="col-sm-3 col-form-label">Χώρα*</label>
+                                            <label for="country" class="col-sm-3 col-form-label">Χώρα</label>
                                             <div class="col-sm-9">
-                                                <input type="text"  id="country" name="country" class="form-control" readonly value="get country from db">
+                                                <?php
+                                                echo "<input type='text'  id='country' name='country' class='form-control' readonly value=$countryRow[1]>";
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -162,6 +223,7 @@
                                 <p class="card-description">
                                     Δικαιολογητικά
                                 </p>
+                                    <!-- to do certificates -->
                                     <div class="form-group">
                                         <label for="ID">Ταυτότητα ή Διαβατήριο</label>
                                         <div class="input-group col-xs-12">
@@ -196,9 +258,12 @@
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <a  href="../../pages/admin-reject/admin-reject.html" class="btn btn-rounded btn-danger" >Απόρριψη</a>
-                                    <a  href="../../pages/admin-pending/admin-pending.html" class="btn btn-rounded btn-info" >Σε Εκκρεμότητα</a>
-                                    <a  href="../../pages/admin-approve/admin-approve.html" class="btn btn-rounded btn-primary" >Έγκριση</a>
+                                    <?php
+                                        $id = $_GET['ID'];
+                                        echo "<a  href='../../pages/admin-reject/admin-reject.php?ID=$id' class='btn btn-rounded btn-danger' >Απόρριψη</a>";
+                                        echo "<a  href='../../pages/admin-pending/admin-pending.php?ID=$id' class='btn btn-rounded btn-info' >Σε Εκκρεμότητα</a>";
+                                        echo "<a  href='../../pages/admin-approve/admin-approve.php?ID=$id' class='btn btn-rounded btn-primary' >Έγκριση</a>";
+                                    ?>
                                 </div>
                             </div>
                             
