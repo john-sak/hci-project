@@ -50,7 +50,7 @@
         {
 ?>
           <script type="text/javascript">
-            window.location = "../User/template/pages/admin-application/admin-application.html";
+            window.location = "../User/template/pages/admin-application/admin-application.php";
           </script>
         <?php
         }

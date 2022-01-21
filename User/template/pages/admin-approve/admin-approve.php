@@ -86,7 +86,7 @@
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <form method="post" action="../../../../php/admin-approve-handler.php" class="form-sample">
+                                <form method="post" action="#" class="form-sample">
                                     <div class="form-group">
                                     <label for="id">ID Αίτησης</label>
                                     <?php
@@ -104,7 +104,7 @@
                                     <div class="form-group">
                                         <label for="uni">Ίδρυμα</label>
                                         <?php
-                                            echo "<select id='uni' name='uni' class='form-control'>";
+                                            echo "<select id='uni' name='uni' class='form-control' onchange='this.form.submit()'>";
                                             $conn = new mysqli($hn, $un, $dp, $db);
                                             if ($conn->connect_error) die ($conn->connect_error);
                                             $query = "SELECT * FROM greekunis";
@@ -112,32 +112,57 @@
                                             if (!$result) die($conn->error);
                                             $row = $result->fetch_row();
                                             $conn->close();
-                                            echo "<option value='none' selected>Επιλέξτε</option>";
-                                            while ($row = $result->fetch_row())
-                                                echo "<option value='$row[0]'>$row[1]</option>";
+                                            if (isset($_POST['uni']) && $_POST['uni'] != 'none') {
+                                                while ($row = $result->fetch_row()) {
+                                                    if ($row[0] == $_POST['uni']) {
+                                                        echo "<option value='$row[0]' selected>$row[1]</option>";
+                                                    } else {
+                                                        echo "<option value='$row[0]'>$row[1]</option>";
+                                                    }
+                                                }
+                                            } else {
+                                                echo "<option value='none' selected>Επιλέξτε</option>";
+                                                while ($row = $result->fetch_row()) {
+                                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                                }
+                                            }
                                             echo "</select>";
                                         ?>                                          
                                     </div>
                                     <div class="form-group">
                                     <label for="dep">Τμήμα</label>
                                         <?php
-                                            // todo selection based on uni
-                                            echo "<select id='dep' name='dep' class='form-control'>";
+                                            echo "<select id='dep' name='dep' class='form-control' onchange='this.form.submit()'>";
                                             $conn = new mysqli($hn, $un, $dp, $db);
                                             if ($conn->connect_error) die ($conn->connect_error);
-                                            $query = "SELECT * FROM greekdepts";
-                                            $result = $conn->query($query);
-                                            if (!$result) die($conn->error);
-                                            $row = $result->fetch_row();
-                                            $conn->close();
-                                            echo "<option value='none' selected>Επιλέξτε</option>";
-                                            while ($row = $result->fetch_row()) 
-                                                echo "<option value='$row[0]'>$row[1]</option>";
+                                            if (isset($_POST['uni']) && $_POST['uni'] != 'none') {
+                                                $uID = intval($_POST['uni']);
+                                                $query = "SELECT * FROM greekdepts WHERE uniID=$uID";
+                                                $result = $conn->query($query);
+                                                if (!$result) die($conn->error);
+                                                $conn->close();
+                                                if (isset($_POST['dep']) && $_POST['dep'] != 'none') {
+                                                    while ($row = $result->fetch_row()) {
+                                                        if ($row[0] == $_POST['dep']) {
+                                                            echo "<option value='$row[0]' selected>$row[1]</option>";
+                                                        } else {
+                                                            echo "<option value='$row[0]'>$row[1]</option>";
+                                                        }
+                                                    }
+                                                } else {
+                                                    echo "<option value='none' selected>Επιλέξτε</option>";
+                                                    while ($row = $result->fetch_row()) {
+                                                        echo "<option value='$row[0]'>$row[1]</option>";
+                                                    }
+                                                }
+                                            } else {
+                                                echo "<option value='none' selected>Επιλέξτε πρώτα πανεπιστήμιο</option>";
+                                            }
                                             echo "</select>";
                                         ?>
                                     </div>
                                     <a class="btn btn-light me-2" href="../admin-application/admin-application.php">Ακύρωση</a>
-                                    <button type="submit" class="btn btn-primary me-2">Υποβολή</button>
+                                    <button type="submit" formaction="../../../../php/admin-approve-handler.php" class="btn btn-primary me-2">Υποβολή</button>
                                 </form>
                             </div>
                         </div>
