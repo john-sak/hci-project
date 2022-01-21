@@ -93,7 +93,7 @@
             </div>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../../../sign-up.html">Έξοδος </a></li>
+              <li class="nav-item"> <a class="nav-link" href="../../../../php/logout-handler.php">Έξοδος </a></li>
               </ul>
             </div>
           </li>
