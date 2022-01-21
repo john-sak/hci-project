@@ -1,3 +1,10 @@
+<?php
+  require_once('../../../../php/db-credentials.php');
+  if (!session_id()) {
+    session_id();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -81,7 +88,7 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/profile/profile.html">Επεξεργασία Προφίλ</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/profile/profile.php">Επεξεργασία Προφίλ</a></li>
               </ul>
             </div>
             <div class="collapse" id="auth">
@@ -109,7 +116,14 @@
                         <div class="form-group row">
                           <label for="name" class="col-sm-3 col-form-label">Όνομα</label>
                           <div class="col-sm-9">
-                            <input name="name" type="text" id="name" class="form-control" placeholder="ΟΝΟΜΑ"/>
+                            <?php
+                              if (isset($_SESSION['id'])) {
+                                $fName = $_SESSION['fName'];
+                                echo "<input name='name' type='text' id='name' class ='form-control' placeholder='$fName'/>";
+                              } else {
+                                echo "<input name='name' type='text' id='name' class ='form-control' placeholder='ΟΝΟΜΑ'/>";
+                              }
+                            ?>
                           </div>
                         </div>
                       </div>
@@ -202,7 +216,7 @@
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary me-2">Αποθήκευση Αλλαγών</button>
-                    <a class="btn btn-light" href="../profile/profile.html"> Ακύρωση</a>
+                    <a class="btn btn-light" href="../profile/profile.php"> Ακύρωση</a>
                   </form>
                 </div>
               </div>

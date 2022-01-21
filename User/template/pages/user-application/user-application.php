@@ -88,7 +88,7 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/profile/profile.html">Επεξεργασία Προφίλ </a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/profile/profile.php">Επεξεργασία Προφίλ </a></li>
               </ul>
             </div>
             <div class="collapse" id="auth">
