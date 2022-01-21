@@ -125,7 +125,7 @@
                                                     echo "<td>$applicationID</td>";
                                                     $conn = new mysqli($hn, $un, $dp, $db);
                                                     if ($conn->connect_error) die ($conn->connect_error);
-                                                    $query = "SELECT * FROM Users WHERE ID=$applicationID";
+                                                    $query = "SELECT * FROM users WHERE ID=$applicationID";
                                                     $userResult = $conn->query($query);
                                                     if (!$userResult) die($conn->error);
                                                     $conn->close();

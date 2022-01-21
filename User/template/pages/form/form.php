@@ -195,7 +195,7 @@
                           <div class="col-sm-9">
                             <?php
                               echo "<select id='deg' name='deg' class='form-control' onchange='this.form.submit()'>";
-                              if (isset($_POST['deg'])) {
+                              if (isset($_POST['deg']) && $_POST['deg'] != 'none') {
                                 if ($_POST['deg'] == "under") {
                                   echo "<option value='under' selected>Προπτυχιακό</option>";
                                   echo "<option value='master'>Μεταπτυχιακό</option>";
