@@ -88,7 +88,7 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/profile/profile.html">Επεξεργασία Προφίλ </a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/profile/profile.php">Επεξεργασία Προφίλ </a></li>
               </ul>
             </div>
             <div class="collapse" id="auth">
@@ -97,6 +97,13 @@
               </ul>
             </div>
           </li>
+          <!-- <li class="nav-item nav-category">help</li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://bootstrapdash.com/demo/star-admin2-free/docs/documentation.html">
+              <i class="menu-icon mdi mdi-file-document"></i>
+              <span class="menu-title">Documentation</span>
+            </a>
+          </li> -->
         </ul>
       </nav>
       <!-- partial -->
@@ -168,7 +175,15 @@
                               echo "<td>$row[6]</td>";
                             } else {
                               echo "<td><label class='badge badge-info'>Σε εκκρεμότητα</label></td>";
-                              echo "<td>Τα μαθήματα που πρέπει να δώσει ο χρήστης</td>"; // todo show courses user needs to pass
+                              $conn = new mysqli($hn, $un, $dp, $db);
+                              $query = "SELECT courseID FROM form_has_courses WHERE formID=$row[0]";
+                              $result = $conn->query($query);
+                              if ($result->num_rows == 0) die();
+                              echo "<td>";
+                              while ($course = $result->fetch_row()) {
+                                echo "$course[0], ";
+                              }
+                              echo "</td>";
                             }
                             echo "</tr>";
                           }

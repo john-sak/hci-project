@@ -80,7 +80,19 @@
 
       //set session vars
       $_SESSION['id'] = $result->fetch_assoc() ['ID'];
+      $_SESSION['fName'] = $first_name;
+      $_SESSION['lName'] = $last_name;
+      $_SESSION['address'] = $addres;
+      $_SESSION['gender'] = $gender;
+      $_SESSION['bDay'] = $day;
+      $_SESSION['bMonth'] = $month;
+      $_SESSION['bYear'] = $year;
+      $_SESSION['email'] = $email;
+      $_SESSION['phone'] = $phone;
       $_SESSION['username'] = $username;
+      $_SESSION['passowrd'] = $password;
+      $_SESSION['admin'] = $isAdmin;
+      
 			?>
 				<script type="text/javascript">
 					window.location = "../User/template/pages/form/form.php";
