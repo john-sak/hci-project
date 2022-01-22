@@ -108,18 +108,23 @@
                 if ($conn->connect_error) die ($conn->connect_error);
                 $query = "SELECT * FROM forms WHERE ID=$id";
                 $result = $conn->query($query);
+                if(!$result) die($conn->error);
                 $row = $result->fetch_row();
                 $query = "SELECT * FROM Users WHERE ID=$row[7]";
                 $userResult = $conn->query($query);
+                if(!$userResult) die($conn->error);
                 $userRow = $userResult->fetch_row();
                 $query = "SELECT * FROM foreigndepts WHERE ID=$row[8]";
                 $deptResult = $conn->query($query);
+                if(!$deptResult) die($conn->error);
                 $deptRow = $deptResult->fetch_row();
                 $query = "SELECT * FROM foreignunis WHERE ID=$deptRow[2]";
                 $uniResult = $conn->query($query);
+                if(!$uniResult) die($conn->error);
                 $uniRow = $uniResult-> fetch_row();
                 $query = "SELECT * FROM countries WHERE ID=$uniRow[2]";
                 $countryResult = $conn->query($query);
+                if(!$countryResult) die($conn->error);
                 $countryRow = $countryResult->fetch_row();;
                 $conn->close();
             }
@@ -212,6 +217,18 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
+                                                <label for="country" class="col-sm-3 col-form-label">Χώρα</label>
+                                                <div class="col-sm-9">
+                                                <?php
+                                                    echo "<input type='text'  id='country' name='country' class='form-control' readonly value=$countryRow[1]>";
+                                                ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
                                                 <label for="univ" class="col-sm-3 col-form-label">Ίδρυμα</label>
                                                 <div class="col-sm-9">
                                                 <?php
@@ -220,8 +237,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label for="dep" class="col-sm-3 col-form-label">Τμήμα</label>
@@ -232,16 +247,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label for="country" class="col-sm-3 col-form-label">Χώρα*</label>
-                                                <div class="col-sm-9">
-                                                <?php
-                                                    echo "<input type='text'  id='country' name='country' class='form-control' readonly value=$countryRow[1]>";
-                                                ?>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <p class="card-description">
                                         Δικαιολογητικά
