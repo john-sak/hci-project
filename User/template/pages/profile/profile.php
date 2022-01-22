@@ -1,7 +1,7 @@
 <?php
   require_once('../../../../php/db-credentials.php');
   if (!session_id()) {
-    session_id();
+    session_start();
   }
 ?>
 
@@ -107,7 +107,7 @@
               <div class="card">
                 <div class="card-body">
                   <h2 class="card-title">Στοιχεία Προφίλ</h2>
-                  <form class="profile-sample" method="post">
+                  <form class="profile-sample" method="post" action="../../../../php/save-profile.php">
                     <h4 class="card-description">
                       Προσωπικές Πληροφορίες
                     </h4>
@@ -119,9 +119,9 @@
                             <?php
                               if (isset($_SESSION['id'])) {
                                 $fName = $_SESSION['fName'];
-                                echo "<input name='name' type='text' id='name' class ='form-control' placeholder='$fName'/>";
+                                echo "<input name='name' type='text' id='name' class ='form-control' value='$fName'/>";
                               } else {
-                                echo "<input name='name' type='text' id='name' class ='form-control' placeholder='ΟΝΟΜΑ'/>";
+                                echo "<input name='name' type='text' id='name' class ='form-control' placeholder='ERROR: could not connect to DB'/>";
                               }
                             ?>
                           </div>
@@ -131,7 +131,14 @@
                         <div class="form-group row">
                           <label for="lname" class="col-sm-3 col-form-label">Επίθετο</label>
                           <div class="col-sm-9">
-                            <input name="lname" id="lname" type="text" class="form-control" placeholder="ΕΠΙΘΕΤΟ"/>
+                            <?php
+                              if (isset($_SESSION['id'])) {
+                                $lName = $_SESSION['lName'];
+                                echo "<input lname='lname' type='text' id='lname' class ='form-control' value='$lName'/>";
+                              } else {
+                                echo "<input name='lname' type='text' id='lname' class ='form-control' placeholder='ERROR: could not connect to DB'/>";
+                              }
+                            ?>
                           </div>
                         </div>
                       </div>
@@ -141,10 +148,27 @@
                         <div class="form-group row">
                           <label for="gender" class="col-sm-3 col-form-label">Φύλο</label>
                           <div class="col-sm-9">
-                            <select id="gender" name="gender" class="form-control">
-                              <option value="male">Άνδρας</option>
-                              <option selected value="female">Γυναίκα</option>
-                              <option value="other">Άλλο</option>
+                            <select id="gender" name="gender" class="form-control" style="color:black">
+                            <?php
+                              if (isset($_SESSION['id'])) {
+                                $gender = $_SESSION['gender'];
+                                if ($gender == 'm') {
+                                  echo "<option value='m' selected>Άνδρας</option>";
+                                  echo "<option value='f'>Γυναίκα</option>";
+                                  echo "<option value='o'>Άλλο</option>";
+                                } else if ($gender == 'f') {
+                                  echo "<option value='m'>Άνδρας</option>";
+                                  echo "<option value='f' selected>Γυναίκα</option>";
+                                  echo "<option value='o'>Άλλο</option>";
+                                } else {
+                                  echo "<option value='m'>Άνδρας</option>";
+                                  echo "<option value='f'>Γυναίκα</option>";
+                                  echo "<option value='o' selected>Άλλο</option>";
+                                }
+                              } else {
+                                echo "<option value='none' selected>ERROR: counld not connect to D</option>";
+                              }
+                            ?>
                             </select>
                           </div>
                         </div>
@@ -153,12 +177,19 @@
                         <div class="form-group row">
                           <label for="bday" class="col-sm-3 col-form-label">Ημ/νία Γέννησης</label>
                           <div class="col-sm-9">
-                            <input id="bday" name="bday" type="date" class="form-control" value="1992-07-22" min="1921-01-01" max="2003-01-01"/>
+                            <?php
+                              if (isset($_SESSION['id'])) {
+                                $day = $_SESSION['bDay'];
+                                $month = $_SESSION['bMonth'];
+                                $year = $_SESSION['bYear'];
+                                echo "<input id='bday' name='bday' type='date' class='form-control' value='$year-$month-$day' min='1921-01-01' max='2003-01-01'/>";
+                              }
+                            ?>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <h4>
+                    <h4 class="card-description">
                       Πληροφορίες Επικοινωνίας
                     </h4>
                     <div class="row">
@@ -166,51 +197,46 @@
                         <div class="form-group row">
                           <label for="addr" class="col-sm-3 col-form-label">Διεύθυνση</label>
                           <div class="col-sm-9">
-                            <input name="addr" type="text" id="addr" class="form-control" placeholder="ΔΙΕΥΘΥΝΣΗ"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label for="postal" class="col-sm-3 col-form-label">Ταχυδρομικός Κώδικας</label>
-                          <div class="col-sm-9">
-                            <input name="postal" id="lname" type="postal" class="form-control" placeholder="ΤΑΧΥΔΡΟΜΙΚΟΣ ΚΩΔΙΚΑΣ"/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label for="city" class="col-sm-3 col-form-label">Πόλη</label>
-                          <div class="col-sm-9">
-                            <input name="city" type="text" id="city" class="form-control" placeholder="ΠΟΛΗ"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label for="country" class="col-sm-3 col-form-label">Χώρα</label>
-                          <div class="col-sm-9">
-                            <input name="country" id="lname" type="country" class="form-control" placeholder="ΧΩΡΑ"/>
+                            <?php
+                              if (isset($_SESSION['id'])) {
+                                $address = $_SESSION['address'];
+                                  echo "<input name='addr' type='text' id='addr' class='form-control' value='$address'/>";
+                              } else {
+                                echo "<input name='addr' type='text' id='addr' class='form-control' placeholder='ERROR: could not connect to DB'/>";
+                              }
+                            ?>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label for="phone" class="col-sm-3 col-form-label">Τηλέφωνο Επικοινωνίας</label>
-                          <div class="col-sm-9">
-                            <input name="phone" type="text" id="phone" class="form-control" placeholder="ΤΗΛΕΦΩΝΟ"/>
-                          </div>
-                        </div>
-                      </div>
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label for="email" class="col-sm-3 col-form-label">Email Επικοινωνίας</label>
                           <div class="col-sm-9">
-                            <input name="email" id="email" type="text" class="form-control" placeholder="EMAIL ΕΠΙΚΟΙΝΩΝΙΑΣ"/>
+                            <?php
+                              if (isset($_SESSION['id'])) {
+                                $email = $_SESSION['email'];
+                                echo "<input name='email' type='text' id='email' class='form-control' value='$email'/>";
+                              } else {
+                                echo "<input name='email' type='text' id='email' class='form-control' placeholder='ERROR: could not connect to DB'/>";
+                              }
+                            ?>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label for="phone" class="col-sm-3 col-form-label">Τηλέφωνο Επικοινωνίας</label>
+                          <div class="col-sm-9">
+                            <?php
+                              if (isset($_SESSION['id'])) {
+                                $phone = $_SESSION['phone'];
+                                echo "<input name='phone' type='text' id='phone' class='form-control' value='$phone'/>";
+                              } else {
+                                echo "<input name='phone' type='text' id='phone' class='form-control' placeholder='ERROR: could not connect to DB'/>";
+                              }
+                            ?>
                           </div>
                         </div>
                       </div>
