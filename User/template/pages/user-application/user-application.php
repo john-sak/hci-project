@@ -97,13 +97,6 @@
               </ul>
             </div>
           </li>
-          <!-- <li class="nav-item nav-category">help</li>
-          <li class="nav-item">
-            <a class="nav-link" href="http://bootstrapdash.com/demo/star-admin2-free/docs/documentation.html">
-              <i class="menu-icon mdi mdi-file-document"></i>
-              <span class="menu-title">Documentation</span>
-            </a>
-          </li> -->
         </ul>
       </nav>
       <!-- partial -->
@@ -219,10 +212,10 @@
                           echo "<td>$row[0]</td>";
                           if ($row[5] == "waiting") {
                             echo "<td><label style='color:orange; border-color:orange' class='badge badge-info'>Σε αναμονή</label></td>";
-                            echo "<td><a href='../../pages/application-preview/application-preview.html' class='btn btn-outline-primary btn-sm'>Επισκόπηση</a></td>";
+                            echo "<td><a href='../../pages/application-preview/application-preview.php?ID=$row[0]' class='btn btn-outline-primary btn-sm'>Επισκόπηση</a></td>";
                           } else {
                             echo "<td><label style='color:purple; border-color:purple' class='badge badge-info'>Προσωρινή Αποθήκευση</label></td>";
-                            echo "<td><a href='../../pages/form/form.php' class='btn btn-outline-primary btn-sm'>Επεξεργασία</a></td>";
+                            echo "<td><a href='../../pages/form/form.php?ID=$row[0]' class='btn btn-outline-primary btn-sm'>Επεξεργασία</a></td>";
                           }
                           echo "</tr>";
                         }

@@ -101,6 +101,15 @@
         </ul>
       </nav>
       <!-- partial -->
+      <?php
+        //init vars
+        $degUp = 0;
+        $couUp = 0;
+        $uniUp = 0;
+        $depUp = 0;
+        $cID = 0;
+        $uID = 0;
+      ?>
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
@@ -194,27 +203,65 @@
                           <label for="deg" class="col-sm-3 col-form-label">Επίπεδο Σπουδών*</label>
                           <div class="col-sm-9">
                             <?php
-                              echo "<select id='deg' name='deg' class='form-control' onchange='this.form.submit()'>";
-                              if (isset($_POST['deg']) && $_POST['deg'] != 'none') {
-                                if ($_POST['deg'] == "under") {
-                                  echo "<option value='under' selected>Προπτυχιακό</option>";
-                                  echo "<option value='master'>Μεταπτυχιακό</option>";
-                                  echo "<option value='phd'>Διδακτορικό</option>";
-                                } else if ($_POST['deg'] == "master") {
-                                  echo "<option value='under'>Προπτυχιακό</option>";
-                                  echo "<option value='master' selected>Μεταπτυχιακό</option>";
-                                  echo "<option value='phd'>Διδακτορικό</option>";
-                                } else {
-                                  echo "<option value='under'>Προπτυχιακό</option>";
-                                  echo "<option value='master'>Μεταπτυχιακό</option>";
-                                  echo "<option value='phd' selected>Διδακτορικό</option>";
+                              //check if already an update happened
+                              if(isset($_POST['deg'])) $degUp = 1;
+
+                              if(isset($_GET['ID']) && !$degUp)
+                              {
+                                //form is temporarily saved
+                                $id = $_GET['ID'];
+                                //get form from db
+                                $conn = new mysqli($hn, $un, $dp, $db);
+                                if ($conn->connect_error) die ($conn->connect_error);  
+                                $query = "SELECT * FROM forms WHERE ID=$id";
+                                $result = $conn->query($query);
+                                if (!$result) die ($conn->connect_error);
+                                $row = $result->fetch_row();
+                                echo "<select id='deg' name='deg' class='form-control' onchange='this.form.submit()'>";
+                                if ($row[1] == "under") {
+                                    echo "<option value='under' selected>Προπτυχιακό</option>";
+                                    echo "<option value='master'>Μεταπτυχιακό</option>";
+                                    echo "<option value='phd'>Διδακτορικό</option>";
+                                } else if ($row[1] == "master") {
+                                    echo "<option value='under'>Προπτυχιακό</option>";
+                                    echo "<option value='master' selected>Μεταπτυχιακό</option>";
+                                    echo "<option value='phd'>Διδακτορικό</option>";
+                                } else if ($row[1] == "phd") {
+                                    echo "<option value='under'>Προπτυχιακό</option>";
+                                    echo "<option value='master'>Μεταπτυχιακό</option>";
+                                    echo "<option value='phd' selected>Διδακτορικό</option>";
                                 }
-                              } else {
-                                echo "<option value='none' selected>Επιλέξτε</option>";
-                                echo "<option value='under'>Προπτυχιακό</option>";
-                                echo "<option value='master'>Μεταπτυχιακό</option>";
-                                echo "<option value='phd'>Διδακτορικό</option>";
+                                else {
+                                  echo "<option value='none' selected>Επιλέξτε</option>";
+                                  echo "<option value='under'>Προπτυχιακό</option>";
+                                  echo "<option value='master'>Μεταπτυχιακό</option>";
+                                  echo "<option value='phd'>Διδακτορικό</option>";
+                                }
+  
                               }
+                              else {
+                                echo "<select id='deg' name='deg' class='form-control' onchange='this.form.submit()'>";
+                                if (isset($_POST['deg']) && $_POST['deg'] != 'none') {
+                                  if ($_POST['deg'] == "under") {
+                                    echo "<option value='under' selected>Προπτυχιακό</option>";
+                                    echo "<option value='master'>Μεταπτυχιακό</option>";
+                                    echo "<option value='phd'>Διδακτορικό</option>";
+                                  } else if ($_POST['deg'] == "master") {
+                                    echo "<option value='under'>Προπτυχιακό</option>";
+                                    echo "<option value='master' selected>Μεταπτυχιακό</option>";
+                                    echo "<option value='phd'>Διδακτορικό</option>";
+                                  } else {
+                                    echo "<option value='under'>Προπτυχιακό</option>";
+                                    echo "<option value='master'>Μεταπτυχιακό</option>";
+                                    echo "<option value='phd' selected>Διδακτορικό</option>";
+                                  }
+                                } else {
+                                  echo "<option value='none' selected>Επιλέξτε</option>";
+                                  echo "<option value='under'>Προπτυχιακό</option>";
+                                  echo "<option value='master'>Μεταπτυχιακό</option>";
+                                  echo "<option value='phd'>Διδακτορικό</option>";
+                                }
+                            }
                               echo "</select>";
                             ?>
                           </div>
@@ -228,23 +275,70 @@
                               echo "<select id='cou' name='cou' class='form-control' onchange='this.form.submit()'>";
                               $conn = new mysqli($hn, $un, $dp, $db);
                               if ($conn->connect_error) die ($conn->connect_error);
+                              //get countries
                               $query = "SELECT * FROM countries";
                               $result = $conn->query($query);
                               if (!$result) die($conn->error);
                               $row = $result->fetch_row();
                               $conn->close();
-                              if (isset($_POST['cou']) && $_POST['cou'] != 'none') {
-                                while ($row = $result->fetch_row()) {
-                                  if ($row[0] == $_POST['cou']) {
-                                    echo "<option value='$row[0]' selected>$row[1]</option>";
-                                  } else {
+                              //check if already an update happened
+                              if(isset($_POST['cou'])) $couUp = 1;
+
+                              if(isset($_GET['ID']) && !$couUp)
+                              {
+                                $conn = new mysqli($hn, $un, $dp, $db);
+                                if ($conn->connect_error) die ($conn->connect_error);
+                                $query = "SELECT * FROM forms WHERE ID=$id";
+                                $formResult = $conn->query($query);
+                                if (!$formResult) die ($conn->connect_error);
+                                $formRow = $formResult->fetch_row();
+                                $conn->close();
+                                if(!$formRow[8])
+                                {
+                                  //country to default
+                                  echo "<option value='none' selected>Επιλέξτε</option>";
+                                  while ($row = $result->fetch_row()) {
                                     echo "<option value='$row[0]'>$row[1]</option>";
                                   }
                                 }
-                              } else {
-                                echo "<option value='none' selected>Επιλέξτε</option>";
-                                while ($row = $result->fetch_row()) {
-                                  echo "<option value='$row[0]'>$row[1]</option>";
+                                else
+                                {
+                                  //get country saved
+                                  $conn = new mysqli($hn, $un, $dp, $db);
+                                  if ($conn->connect_error) die ($conn->connect_error);  
+                                  $query = "SELECT * FROM foreigndepts WHERE ID=$formRow[8]";
+                                  $depResult = $conn->query($query);
+                                  $depRow = $depResult->fetch_row();
+                                  $query = "SELECT * FROM foreignunis WHERE ID=$depRow[2]";
+                                  $uniResult = $conn->query($query);
+                                  $uniRow = $uniResult-> fetch_row();
+                                  $query = "SELECT * FROM countries WHERE ID=$uniRow[2]";
+                                  $countryResult = $conn->query($query);
+                                  $countryRow = $countryResult->fetch_row();
+                                  $conn->close();
+                                  while ($row = $result->fetch_row()) {
+                                    if ($row[0] == $countryRow[0]) 
+                                      echo "<option value='$row[0]' selected>$row[1]</option>";
+                                    else
+                                      echo "<option value='$row[0]'>$row[1]</option>";
+                                  }  
+                                }
+                              }
+                              else
+                              {
+                                if (isset($_POST['cou']) && $_POST['cou'] != 'none') {
+                                  while ($row = $result->fetch_row()) {
+                                    if ($row[0] == $_POST['cou']) {
+                                      echo "<option value='$row[0]' selected>$row[1]</option>";
+                                    } else {
+                                      echo "<option value='$row[0]'>$row[1]</option>";
+                                    }
+                                  }
+                                } else {
+                                  echo "<option value='none' selected>Επιλέξτε</option>";
+                                  while ($row = $result->fetch_row()) {
+                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                  }
                                 }
                               }
                               echo "</select>";
@@ -260,30 +354,90 @@
                           <div class="col-sm-9">
                             <?php
                               echo "<select id='uni' name='uni' class='form-control' onchange='this.form.submit()'>";
-                              $conn = new mysqli($hn, $un, $dp, $db);
-                              if ($conn->connect_error) die ($conn->connect_error);
-                              if (isset($_POST['cou']) && $_POST['cou'] != 'none') {
-                                $cID = intval($_POST['cou']);
-                                $query = "SELECT * FROM foreignUnis WHERE countryID=$cID";
-                                $result = $conn->query($query);
-                                if (!$result) die($conn->error);
+                              
+                              if(isset($_POST['uni'])) $uniUp = 1;
+
+                              if(isset($_GET['ID']) && !$uniUp)
+                              {
+                                $id = $_GET['ID'];
+
+                                $conn = new mysqli($hn, $un, $dp, $db);
+                                if ($conn->connect_error) die ($conn->connect_error);
+                                $query = "SELECT * FROM forms WHERE ID=$id";
+                                $formResult = $conn->query($query);
+                                if (!$formResult) die ($conn->connect_error);
+                                $formRow = $formResult->fetch_row();
                                 $conn->close();
-                                if (isset($_POST['uni']) && $_POST['uni'] != 'none') {
-                                  while ($row = $result->fetch_row()) {
-                                    if ($row[0] == $_POST['uni']) {
-                                      echo "<option value='$row[0]' selected>$row[1]</option>";
-                                    } else {
-                                      echo "<option value='$row[0]'>$row[1]</option>";
-                                    }
-                                  }
-                                } else {
-                                  echo "<option value='none' selected>Επιλέξτε</option>";
-                                  while ($row = $result->fetch_row()) {
-                                    echo "<option value='$row[0]'>$row[1]</option>";
+                                if(!$formRow[8])
+                                {
+                                  echo "<option value='none' selected>Επιλέξτε πρώτα χώρα</option>";                                
+                                }
+                                else
+                                {
+                                  $conn = new mysqli($hn, $un, $dp, $db);
+                                  if ($conn->connect_error) die ($conn->connect_error);
+                                  //find uni and country saved
+                                  $query = "SELECT * FROM foreigndepts WHERE ID=$formRow[8]";
+                                  $depResult = $conn->query($query);
+                                  $depRow = $depResult->fetch_row();
+                                  $query = "SELECT * FROM foreignunis WHERE ID=$depRow[2]";
+                                  $uniResult = $conn->query($query);
+                                  $uniRow = $uniResult-> fetch_row();
+                                  $query = "SELECT * FROM countries WHERE ID=$uniRow[2]";
+                                  $countryResult = $conn->query($query);
+                                  $countryRow = $countryResult->fetch_row();
+                                  $cID = $countryRow[0];
+                                  //get the unis in the set country
+                                  $query = "SELECT * FROM foreignunis WHERE countryID=$cID";
+                                  $unisCountryResult = $conn->query($query);
+                                  if(!$unisCountryResult) die($conn->error);
+                                  $conn->close();
+                                  while($unisCountryRow = $unisCountryResult->fetch_row()) {
+                                      if ($unisCountryRow[0] == $uniRow[0]) {
+                                        echo "<option value='$rounisCountryRoww[0]' selected>$unisCountryRow[1]</option>";
+                                      } else {
+                                        echo "<option value='$unisCountryRow[0]'>$unisCountryRow[1]</option>";
+                                      }
                                   }
                                 }
-                              } else {
-                                echo "<option value='none' selected>Επιλέξτε πρώτα χώρα</option>";
+                              }
+                              else 
+                              {
+                                $conn = new mysqli($hn, $un, $dp, $db);
+                                if ($conn->connect_error) die ($conn->connect_error);
+                                if (isset($_POST['cou']) && $_POST['cou'] != 'none') {
+                                  $cID = intval($_POST['cou']);
+                                  $query = "SELECT * FROM foreignUnis WHERE countryID=$cID";
+                                  $result = $conn->query($query);
+                                  if (!$result) die($conn->error);
+                                  $conn->close();
+                                  if (isset($_POST['uni'])) {
+                                    $uID = intval($_POST['uni']);
+                                    $conn = new mysqli($hn, $un, $dp, $db);
+                                    if ($conn->connect_error) die ($conn->connect_error);
+                                    $query = "SELECT * FROM foreignUnis WHERE ID=$uID";
+                                    $uniResult = $conn->query($query);
+                                    $uniRow = $uniResult->fetch_row();
+                                    $conn->close();
+                                    if($_POST['uni'] != 'none' && $uniRow[2] == $cID){
+                                      while ($row = $result->fetch_row()) {
+                                        if ($row[0] == $_POST['uni']) {
+                                          echo "<option value='$row[0]' selected>$row[1]</option>";
+                                        } else {
+                                          echo "<option value='$row[0]'>$row[1]</option>";
+                                        }
+                                      }
+                                    }
+                                    else {
+                                      echo "<option value='none' selected>Επιλέξτε</option>";
+                                      while ($row = $result->fetch_row()) {
+                                        echo "<option value='$row[0]'>$row[1]</option>";
+                                      }
+                                    }
+                                  } 
+                                } else {
+                                  echo "<option value='none' selected>Επιλέξτε πρώτα χώρα</option>";
+                                }
                               }
                               echo "</select>";
                             ?>
@@ -296,30 +450,77 @@
                           <div class="col-sm-9">
                             <?php
                             echo "<select id='dep' name='dep' class='form-control' onchange='this.form.submit()'>";
-                            $conn = new mysqli($hn, $un, $dp, $db);
-                            if ($conn->connect_error) die ($conn->connect_error);
-                            if (isset($_POST['uni']) && $_POST['uni'] != 'none') {
-                              $uID = intval($_POST['uni']);
-                              $query = "SELECT * FROM foreignDepts WHERE uniID=$uID";
-                              $result = $conn->query($query);
-                              if (!$result) die($conn->error);
+
+                            if(isset($_POST['dep'])) $depUp = 1;
+
+                            if(isset($_GET['ID']) && !$depUp)
+                            {
+                              $id = $_GET['ID'];
+
+                              $conn = new mysqli($hn, $un, $dp, $db);
+                              if ($conn->connect_error) die ($conn->connect_error);
+                              $query = "SELECT * FROM forms WHERE ID=$id";
+                              $formResult = $conn->query($query);
+                              if (!$formResult) die ($conn->connect_error);
+                              $formRow = $formResult->fetch_row();
                               $conn->close();
-                              if (isset($_POST['dep']) && $_POST['dep'] != 'none') {
-                                while ($row = $result->fetch_row()) {
-                                  if ($row[0] == $_POST['dep']) {
-                                    echo "<option value='$row[0]' selected>$row[1]</option>";
-                                  } else {
+                              if(!$formRow[8])
+                              {
+                                echo "<option value='none' selected>Επιλέξτε πρώτα πανεπιστήμιο</option>";                                
+                              }
+                              else
+                              {
+                                $conn = new mysqli($hn, $un, $dp, $db);
+                                if ($conn->connect_error) die ($conn->connect_error);
+                                //find uni and dep saved
+                                $query = "SELECT * FROM foreigndepts WHERE ID=$formRow[8]";
+                                $depResult = $conn->query($query);
+                                $depRow = $depResult->fetch_row();
+                                $query = "SELECT * FROM foreignunis WHERE ID=$depRow[2]";
+                                $uniResult = $conn->query($query);
+                                $uniRow = $uniResult-> fetch_row();
+                                $uID = $uniRow[0];
+                                //get the deps in the set uni
+                                $query = "SELECT * FROM foreigndepts WHERE uniID=$uID";
+                                $depsUniResult = $conn->query($query);
+                                if(!$depsUniResult) die($conn->error);
+                                $conn->close();
+                                while($depsUniRow = $depsUniResult->fetch_row()) {
+                                    if ($depsUniRow[0] == $depRow[0]) {
+                                      echo "<option value='$depsUniRow[0]' selected>$depsUniRow[1]</option>";
+                                    } else {
+                                      echo "<option value='$depsUniRow[0]'>$depsUniRow[1]</option>";
+                                    }
+                                }
+                              }
+                            }
+                            else
+                            {
+                              $conn = new mysqli($hn, $un, $dp, $db);
+                              if ($conn->connect_error) die ($conn->connect_error);
+                              if (isset($_POST['uni']) && $_POST['uni'] != 'none') {
+                                $uID = intval($_POST['uni']);
+                                $query = "SELECT * FROM foreignDepts WHERE uniID=$uID";
+                                $result = $conn->query($query);
+                                if (!$result) die($conn->error);
+                                $conn->close();
+                                if (isset($_POST['dep']) && $_POST['dep'] != 'none') {
+                                  while ($row = $result->fetch_row()) {
+                                    if ($row[0] == $_POST['dep']) {
+                                      echo "<option value='$row[0]' selected>$row[1]</option>";
+                                    } else {
+                                      echo "<option value='$row[0]'>$row[1]</option>";
+                                    }
+                                  }
+                                } else {
+                                  echo "<option value='none' selected>Επιλέξτε</option>";
+                                  while ($row = $result->fetch_row()) {
                                     echo "<option value='$row[0]'>$row[1]</option>";
                                   }
                                 }
                               } else {
-                                echo "<option value='none' selected>Επιλέξτε</option>";
-                                while ($row = $result->fetch_row()) {
-                                  echo "<option value='$row[0]'>$row[1]</option>";
-                                }
+                                echo "<option value='none' selected>Επιλέξτε πρώτα πανεπιστήμιο</option>";
                               }
-                            } else {
-                              echo "<option value='none' selected>Επιλέξτε πρώτα πανεπιστήμιο</option>";
                             }
                             echo "</select>";
                             ?>
