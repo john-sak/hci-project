@@ -34,6 +34,7 @@
     $query = "UPDATE users SET firstName = '$fName' WHERE ID = $id";
     $result = $conn->query($query);
     if (!$result) die($conn->error);
+    $_SESSION['fName'] = $fName;
   }
 
   if (isset($_POST['lname']) && $_POST['lname'] != '') {
@@ -41,6 +42,7 @@
     $query = "UPDATE users SET lastName = '$lName' WHERE ID = $id";
     $result = $conn->query($query);
     if (!$result) die($conn->error);
+    $_SESSION['lName'] = $fName;
   }
 
   if (isset($_POST['gender']) && $_POST['gender'] != 'none') {
@@ -48,6 +50,7 @@
     $query = "UPDATE users SET gender = '$gender' WHERE ID = $id";
     $result = $conn->query($query);
     if (!$result) die($conn->error);
+    $_SESSION['gender'] = $gender;
   }
 
   $bday = $_POST['bday'];
@@ -59,6 +62,7 @@
     $query = "UPDATE users SET address = '$address' WHERE ID = $id";
     $result = $conn->query($query);
     if (!$result) die($conn->error);
+    $_SESSION['address'] = $addres;
   }
 
   if (isset($_POST['email']) && $_POST['email'] != '') {
@@ -66,6 +70,7 @@
     $query = "UPDATE users SET email = '$email' WHERE ID = $id";
     $result = $conn->query($query);
     if (!$result) die($conn->error);
+    $_SESSION['email'] = $email;
   }
 
   if (isset($_POST['phone']) && $_POST['phone'] != '') {
@@ -73,11 +78,12 @@
     $query = "UPDATE users SET phone = '$phone' WHERE ID = $id";
     $result = $conn->query($query);
     if (!$result) die($conn->error);
+    $_SESSION['phone'] = $phone;
   }
   $conn->close();
 
   ?>
   <script type="text/javascript">
     window.location = "../User/template/pages/profile/profile.php"
-    alert("Οι αλλαγές αποθηκεύτηκαν επιτυχώς! Αποσυνδεθείτε και συνδεθείτε ξανά για να εμφανιστούν.");
+    alert("Οι αλλαγές αποθηκεύτηκαν επιτυχώς!");
   </script>
