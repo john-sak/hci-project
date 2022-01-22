@@ -38,7 +38,7 @@
   }
 
 
-  $query = "INSERT INTO forms (eduLevel, status, userID, foreignDeptID) VALUES ('$degree', 'waiting', $id, $department)";
+  $query = "INSERT INTO forms (ID,eduLevel, status, userID, foreignDeptID) VALUES ($formID,'$degree', 'waiting', $id, $department)";
   $result = $conn->query($query);
 
   // check if query failed
