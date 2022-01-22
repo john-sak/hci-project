@@ -28,7 +28,17 @@
   $degree = $_POST['deg'];
   $department = intval($_POST['dep']);
 
-  $query = "INSERT INTO forms (eduLevel, status, userID, foreignDeptID) VALUES ('$degree', 'waiting', $id, $department)";
+  if(isset($_GET['ID']))
+  {
+    $formID = intval($_GET['ID']);
+    $query = "DELETE FROM forms WHERE ID=$formID";
+    $result = $conn->query($query);
+    // check if query failed
+    if(!$result)  die($conn->error);  
+  }
+
+
+  $query = "INSERT INTO forms (ID,eduLevel, status, userID, foreignDeptID) VALUES ($formID,'$degree', 'waiting', $id, $department)";
   $result = $conn->query($query);
 
   // check if query failed

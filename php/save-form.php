@@ -25,7 +25,16 @@
 
   $id = intval($_SESSION['id']);
 
-  $query = "INSERT INTO forms (eduLevel, status, userID, foreignDeptID) VALUES ('$degree', 'saved', $id, $department)";
+  if(isset($_GET['ID']))
+  {
+    $formID = intval($_GET['ID']);
+    $query = "DELETE FROM forms WHERE ID=$formID";
+    $result = $conn->query($query);
+    // check if query failed
+    if(!$result)  die($conn->error);  
+  }
+
+  $query = "INSERT INTO forms (ID,eduLevel, status, userID, foreignDeptID) VALUES ($formID,'$degree', 'saved', $id, $department)";
   $result = $conn->query($query);
   // check if query failed
   if(!$result)  die($conn->error);
