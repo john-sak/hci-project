@@ -175,7 +175,15 @@
                               echo "<td>$row[6]</td>";
                             } else {
                               echo "<td><label class='badge badge-info'>Σε εκκρεμότητα</label></td>";
-                              echo "<td>Τα μαθήματα που πρέπει να δώσει ο χρήστης</td>"; // todo show courses user needs to pass
+                              $conn = new mysqli($hn, $un, $dp, $db);
+                              $query = "SELECT courseID FROM form_has_courses WHERE formID=$row[0]";
+                              $result = $conn->query($query);
+                              if ($result->num_rows == 0) die();
+                              echo "<td>";
+                              while ($course = $result->fetch_row()) {
+                                echo "$course[0], ";
+                              }
+                              echo "</td>";
                             }
                             echo "</tr>";
                           }
