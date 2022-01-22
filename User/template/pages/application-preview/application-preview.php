@@ -131,7 +131,13 @@
                         <div class="col-12 grid-margin">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Προεπισκόπηση Αίτησης</h4>
+                                    <?php
+                                        if(isset($_GET['ID']))
+                                        {
+                                            $id = $_GET['ID'];
+                                            echo "<h4 class='card-title'>Προεπισκόπηση Αίτησης $id</h4>";
+                                        }
+                                    ?>
                                     <p class="card-description">
                                         Προσωπικές Πληροφορίες
                                     </p>
