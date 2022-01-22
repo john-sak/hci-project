@@ -565,8 +565,20 @@
                           </div>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary me-2" value="submit" formaction="../../../../php/submit-form.php">Υποβολή</button>
-                      <button type="submit" class="btn btn-light" value="save" formaction="../../../../php/save-form.php">Προσωρινή Αποθήκευση</button>
+                      <?php
+                      if(isset($_GET['ID']))
+                      {
+                        $id = $_GET['ID'];
+                        echo "<button type='submit' class='btn btn-primary me-2' value='submit' formaction='../../../../php/submit-form.php?ID=$id'>Υποβολή</button>";
+                        echo "<button type='submit' class='btn btn-light' value='save' formaction='../../../../php/save-form.php?ID=$id'>Προσωρινή Αποθήκευση</button>";
+                      }
+                      else
+                      {
+                        echo "<button type='submit' class='btn btn-primary me-2' value='submit' formaction='../../../../php/submit-form.php'>Υποβολή</button>";
+                        echo "<button type='submit' class='btn btn-light' value='save' formaction='../../../../php/save-form.php'>Προσωρινή Αποθήκευση</button>";
+
+                      }
+                      ?>
                   </form>
                 </div>
               </div>
