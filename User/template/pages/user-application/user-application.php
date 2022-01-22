@@ -180,8 +180,18 @@
                               $result = $conn->query($query);
                               if ($result->num_rows == 0) die();
                               echo "<td>";
+                              $count = 0;
                               while ($course = $result->fetch_row()) {
-                                echo "$course[0], ";
+                                $id = $course[0];
+                                $query = "SELECT name FROM courses WHERE ID=$id";
+                                $resultIN = $conn->query($query);
+                                if ($resultIN->num_rows == 0) die();
+                                $name = $resultIN->fetch_row() [0];
+                                echo "$name";
+                                $count = $count + 1;
+                                if ($count != $result->num_rows) {
+                                  echo " ,";
+                                }
                               }
                               echo "</td>";
                             }
