@@ -87,7 +87,7 @@
             <?php
                 $conn = new mysqli($hn, $un, $dp, $db);
                 if ($conn->connect_error) die ($conn->connect_error);
-                $query = "SELECT * FROM forms WHERE status='saved'";
+                $query = "SELECT * FROM forms WHERE status='waiting'";
                 $result = $conn->query($query);
                 $conn->close();
             ?>
@@ -125,7 +125,8 @@
                                                     echo "<td>$applicationID</td>";
                                                     $conn = new mysqli($hn, $un, $dp, $db);
                                                     if ($conn->connect_error) die ($conn->connect_error);
-                                                    $query = "SELECT * FROM users WHERE ID=$applicationID";
+                                                    $userID = $row[7];
+                                                    $query = "SELECT * FROM users WHERE ID=$userID";
                                                     $userResult = $conn->query($query);
                                                     if (!$userResult) die($conn->error);
                                                     $conn->close();
