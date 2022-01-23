@@ -18,7 +18,7 @@
     }
     else{
         echo "file not exist";
-        exit;
+        exit();
     }
-}else exit;
+}else exit();
 ?>

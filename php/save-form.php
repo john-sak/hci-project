@@ -23,21 +23,21 @@
     $department = 0;
   }
   if(!($_FILES['IDfile']['name'] == "")){
-    $filename = $_FILES['IDfile']['name'] . "-" . rand(1000,10000);
+    $filename = rand(1000,10000) . "-"  . $_FILES['IDfile']['name'] ;
     $tempName = $_FILES['IDfile']['tmp_name'];
     $path = "../files/" . $filename;
   }else{
     $filename = NULL;
   }
   if(!($_FILES['degreefile']['name'] == "")){
-    $filename1 = $_FILES['degreefile']['name']. "-" . rand(1000,10000);
+    $filename1 =   rand(1000,10000) . "-"  . $_FILES['degreefile']['name'];
     $tempName1 = $_FILES['degreefile']['tmp_name'];
     $path1 = "../files/" . $filename1;
   }else{
     $filename1 = NULL;
   }
   if(!($_FILES['courses']['name'] == "")){
-    $filename2 = $_FILES['courses']['name']. "-" . rand(1000,10000);
+    $filename2 =   rand(1000,10000) . "-" . $_FILES['courses']['name'];
     $tempName2 = $_FILES['courses']['tmp_name'];
     $path2 = "../files/" . $filename2;
   }else{

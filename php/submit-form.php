@@ -13,10 +13,11 @@
   if (!isset($_POST['deg']) || $_POST['deg'] == 'none' || !isset($_POST['dep']) || $_POST['dep'] == 'none' || $_FILES['IDfile']['name'] == "" || $_FILES['degreefile']['name'] == "" || $_FILES['courses']['name'] == "") {
     ?>
       <script type="text/javascript">
-        window.location = "../User/template/pages/form/form.php";
+        window.location = "../User/template/pages/user-application/user-application.php";
         alert("Όλα τα πεδία είναι απαραίτητα για την υποβολή της αίτησης!");
       </script>
     <?php
+    exit();
   }
 
   //connect to db
@@ -27,13 +28,13 @@
   $id = intval($_SESSION['id']);
   $degree = $_POST['deg'];
   $department = intval($_POST['dep']);
-  $filename = $_FILES['IDfile']['name'] . "-" . rand(1000,10000);
+  $filename = rand(1000,10000) . "-"  . $_FILES['IDfile']['name'];
   $tempName = $_FILES['IDfile']['tmp_name'];
   $path = "../files/" . $filename;
-  $filename1 = $_FILES['degreefile']['name'] . "-" . rand(1000,10000);
+  $filename1 = rand(1000,10000) . "-"  .$_FILES['degreefile']['name'];
   $tempName1 = $_FILES['degreefile']['tmp_name'];
   $path1 = "../files/" . $filename1;
-  $filename2 = $_FILES['courses']['name'] . "-" . rand(1000,10000);
+  $filename2 = rand(1000,10000) . "-"  . $_FILES['courses']['name'];
   $tempName2 = $_FILES['courses']['tmp_name'];
   $path2 = "../files/" . $filename2;
 

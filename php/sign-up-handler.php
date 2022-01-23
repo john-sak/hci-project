@@ -58,6 +58,7 @@
           alert("Το όνομα χρήστη υπάρχει ήδη");
         </script>
     <?php
+      exit();
       }
       //free result
       $result -> free_result();
