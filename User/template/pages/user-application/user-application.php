@@ -190,7 +190,7 @@
                                 echo "$name";
                                 $count = $count + 1;
                                 if ($count != $result->num_rows) {
-                                  echo " ,";
+                                  echo ", ";
                                 }
                               }
                               echo "</td>";

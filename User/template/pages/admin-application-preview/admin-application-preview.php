@@ -135,7 +135,7 @@
                                             <div class="col-sm-9">
                                                 <?php
                                                 echo "<input name='lname' id='lname' type='text'  class='form-control' readonly value=$userRow[2]>";
-                                                ?>                                           
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -155,7 +155,7 @@
                                                         $gender = "Άλλο";
                                                     }
                                                 echo "<input name='gender' id='gender' type='text' class='form-control' value='$gender' readonly />";
-                                                ?>                                            
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -234,7 +234,8 @@
                                             $result = $conn->query($query);
                                             if(!$result) die($conn->error);
                                             $row = $result->fetch_row();
-                                            ?>
+                                            $conn->close();
+                                        ?>
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" readonly value="Κατέβασε το Αρχείο">
                                             <span class="input-group-append">
@@ -255,7 +256,8 @@
                                             $result = $conn->query($query);
                                             if(!$result) die($conn->error);
                                             $row = $result->fetch_row();
-                                            ?>
+                                            $conn->close();
+                                        ?>
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" readonly value="Κατέβασε το Αρχείο">
                                             <span class="input-group-append">
@@ -277,7 +279,8 @@
                                             $result = $conn->query($query);
                                             if(!$result) die($conn->error);
                                             $row = $result->fetch_row();
-                                            ?>
+                                            $conn->close();
+                                        ?>
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" readonly value="Κατέβασε το Αρχείο">
                                             <span class="input-group-append">
@@ -299,7 +302,6 @@
                                     ?>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
