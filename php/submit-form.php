@@ -60,7 +60,7 @@
 
   
   }else{
-    $query = "INSERT INTO forms (ID,eduLevel, status, userID, foreignDeptID,identification,diploma,certificate) VALUES ($formID,'$degree', 'waiting', $id, $department,'$filename','$filename1','$filename2')";
+    $query = "INSERT INTO forms (eduLevel, status, userID, foreignDeptID,identification,diploma,certificate) VALUES ('$degree', 'waiting', $id, $department,'$filename','$filename1','$filename2')";
     $result = $conn->query($query);
     if(!$result)  die($conn->error);
 
