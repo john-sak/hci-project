@@ -117,7 +117,7 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Νέα Αίτηση</h4>
-                  <form class="form-sample" method="post" action="#">
+                  <form class="form-sample" method="post" action="#" enctype="multipart/form-data" >
                     <p class="card-description">
                       Προσωπικές Πληροφορίες
                     </p>
@@ -532,8 +532,8 @@
                       </p>
                     <div class="row">
                       <div class="form-group">
-                        <label for="ID">Ταυτότητα ή Διαβατήριο*</label>
-                        <input id="ID" type="file" name="ID" class="file-upload-default" onchange="this.form.submit()">
+                        <label for="IDfile">Ταυτότητα ή Διαβατήριο*</label>
+                        <input id="IDfile" type="file" name="IDfile" class="file-upload-default">
                         <div class="input-group col-xs-12">
                           <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
                           <span class="input-group-append">
@@ -544,7 +544,7 @@
                       <div class="row">
                         <div class="form-group">
                           <label for="degreefile">Τίτλος Σπουδών*</label>
-                          <input id="degreefile" type="file" name="degreefile" class="file-upload-default" onchange="this.form.submit()">
+                          <input id="degreefile" type="file" name="degreefile" class="file-upload-default" >
                           <div class="input-group col-xs-12">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
                             <span class="input-group-append">
@@ -556,7 +556,7 @@
                       <div class="row">
                         <div class="form-group">
                           <label for="courses">Πιστοποιητικό Μαθημάτων*</label>
-                          <input id="courses" type="file" name="courses" class="file-upload-default" onchange="this.form.submit()">
+                          <input id="courses" type="file" name="courses" class="file-upload-default">
                           <div class="input-group col-xs-12">
                             <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
                             <span class="input-group-append">

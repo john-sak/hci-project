@@ -226,20 +226,42 @@
                                     <!-- to do certificates -->
                                     <div class="form-group">
                                         <label for="ID">Ταυτότητα ή Διαβατήριο</label>
+                                        <?php
+                                            $id = $_GET['ID'];
+                                            $conn = new mysqli($hn, $un, $dp, $db);
+                                            if ($conn->connect_error) die ($conn->connect_error);
+                                            $query = "SELECT identification FROM forms WHERE ID=$id";
+                                            $result = $conn->query($query);
+                                            if(!$result) die($conn->error);
+                                            $row = $result->fetch_row();
+                                            ?>
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" readonly value="Κατέβασε το Αρχείο">
                                             <span class="input-group-append">
-                                                <a class="file-upload-browse btn btn-primary" href="link/to/your/download/file" download="filename">Download File</a>
+                                            <?php
+                                                echo "<a class='file-upload-browse btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
+                                            ?>
                                             </span>
                                         </div>
                                     </div>
                                 <div class="row">
                                     <div class="form-group">
                                         <label for="degreefile">Τίτλος Σπουδών</label>
+                                        <?php
+                                            $id = $_GET['ID'];
+                                            $conn = new mysqli($hn, $un, $dp, $db);
+                                            if ($conn->connect_error) die ($conn->connect_error);
+                                            $query = "SELECT diploma FROM forms WHERE ID=$id";
+                                            $result = $conn->query($query);
+                                            if(!$result) die($conn->error);
+                                            $row = $result->fetch_row();
+                                            ?>
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" readonly value="Κατέβασε το Αρχείο">
                                             <span class="input-group-append">
-                                                <a class="file-upload-browse btn btn-primary" href="link/to/your/download/file" download="filename">Download File</a>
+                                            <?php
+                                                echo "<a class='file-upload-browse btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
+                                            ?>
                                             </span>
                                         </div>
                                     </div>
@@ -247,10 +269,21 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <label for="courses">Πιστοποιητικό Μαθημάτων</label>
+                                        <?php
+                                            $id = $_GET['ID'];
+                                            $conn = new mysqli($hn, $un, $dp, $db);
+                                            if ($conn->connect_error) die ($conn->connect_error);
+                                            $query = "SELECT certificate FROM forms WHERE ID=$id";
+                                            $result = $conn->query($query);
+                                            if(!$result) die($conn->error);
+                                            $row = $result->fetch_row();
+                                            ?>
                                         <div class="input-group col-xs-12">
                                             <input type="text" class="form-control file-upload-info" readonly value="Κατέβασε το Αρχείο">
                                             <span class="input-group-append">
-                                                <a class="file-upload-browse btn btn-primary" href="link/to/your/download/file" download="filename">Download File</a>
+                                            <?php
+                                                echo "<a class='file-upload-browse btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
+                                            ?>
                                             </span>
                                         </div>
                                     </div>
