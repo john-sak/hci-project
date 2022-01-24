@@ -545,6 +545,21 @@
                               if(!$result) die($conn->error);
                               $row = $result->fetch_row();
                               $conn->close();
+                              if ($row[0] != "") {
+                                echo "<input type='text' class='form-control file-upload-info' readonly value='Δείτε το ήδη υπάρχον αρχείο ($row[0])'>";
+                                echo "<span class='input-group-append'>";
+                                echo "<a class='file-upload-browse btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
+                                echo "</span>";
+                                echo "<input type='text' class='form-control file-upload-info' readonly value='Η ανεβάστε καινούργιο αρχείο'>";
+                                echo "<span class='input-group-append'>";
+                                echo "<button class='file-upload-browse btn btn-primary' value='upload' name='uploadID' type='button'>Upload File</button>";
+                                echo "</span>";
+                              } else {
+                                echo "<input type='text' class='form-control file-upload-info' disabled placeholder='Ανέβασε Αρχείο'>";
+                                echo "<span class='input-group-append'>";
+                                echo "<button class='file-upload-browse btn btn-primary' value='upload' name='uploadID' type='button'>Upload File</button>";
+                                echo "</span>";
+                              }
                             } else {
                               echo "<input type='text' class='form-control file-upload-info' disabled placeholder='Ανέβασε Αρχείο'>";
                               echo "<span class='input-group-append'>";
@@ -559,10 +574,38 @@
                           <label for="degreefile">Τίτλος Σπουδών*</label>
                           <input id="degreefile" type="file" name="degreefile" class="file-upload-default" >
                           <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
-                            <span class="input-group-append">
-                              <button class="file-upload-browse btn btn-primary" value="uploaddegree" name="uploaddegree" type="button">Upload File</button>
-                            </span>
+                            <?php
+                              if (isset($_GET['ID'])) {
+                                $id = $_GET['ID'];
+                                $conn = new mysqli($hn, $un, $dp, $db);
+                                if ($conn->connect_error) die ($conn->connect_error);
+                                $query = "SELECT diploma FROM forms WHERE ID=$id";
+                                $result = $conn->query($query);
+                                if(!$result) die($conn->error);
+                                $row = $result->fetch_row();
+                                $conn->close();
+                                if ($row[0] != "") {
+                                  echo "<input type='text' class='form-control file-upload-info' readonly value='Δείτε το ήδη υπάρχον αρχείο ($row[0])'>";
+                                  echo "<span class='input-group-append'>";
+                                  echo "<a class='file-upload-browse btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
+                                  echo "</span>";
+                                  echo "<input type='text' class='form-control file-upload-info' readonly value='Η ανεβάστε καινούργιο αρχείο'>";
+                                  echo "<span class='input-group-append'>";
+                                  echo "<button class='file-upload-browse btn btn-primary' value='uploaddegree' name='uploaddegree' type='button'>Upload File</button>";
+                                  echo "</span>";
+                                } else {
+                                  echo "<input type='text' class='form-control file-upload-info' disabled placeholder='Ανέβασε Αρχείο'>";
+                                  echo "<span class='input-group-append'>";
+                                  echo "<button class='file-upload-browse btn btn-primary' value='uploaddegree' name='uploaddegree' type='button'>Upload File</button>";
+                                  echo "</span>";
+                                }
+                              } else {
+                                echo "<input type='text' class='form-control file-upload-info' disabled placeholder='Ανέβασε Αρχείο'>";
+                                echo "<span class='input-group-append'>";
+                                echo "<button class='file-upload-browse btn btn-primary' value='uploaddegree' name='uploaddegree' type='button'>Upload File</button>";
+                                echo "</span>";
+                              }
+                            ?>
                           </div>
                         </div>
                       </div>
@@ -571,10 +614,38 @@
                           <label for="courses">Πιστοποιητικό Μαθημάτων*</label>
                           <input id="courses" type="file" name="courses" class="file-upload-default">
                           <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
-                            <span class="input-group-append">
-                              <button class="file-upload-browse btn btn-primary" value="uploadcourses" name="uploadcourses" type="button">Upload File</button>
-                            </span>
+                            <?php
+                              if (isset($_GET['ID'])) {
+                                $id = $_GET['ID'];
+                                $conn = new mysqli($hn, $un, $dp, $db);
+                                if ($conn->connect_error) die ($conn->connect_error);
+                                $query = "SELECT certificate FROM forms WHERE ID=$id";
+                                $result = $conn->query($query);
+                                if(!$result) die($conn->error);
+                                $row = $result->fetch_row();
+                                $conn->close();
+                                if ($row[0] != "") {
+                                  echo "<input type='text' class='form-control file-upload-info' readonly value='Δείτε το ήδη υπάρχον αρχείο ($row[0])'>";
+                                  echo "<span class='input-group-append'>";
+                                  echo "<a class='file-upload-browse btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
+                                  echo "</span>";
+                                  echo "<input type='text' class='form-control file-upload-info' readonly value='Η ανεβάστε καινούργιο αρχείο'>";
+                                  echo "<span class='input-group-append'>";
+                                  echo "<button class='file-upload-browse btn btn-primary' value='uploadcourses' name='uploadcourses' type='button'>Upload File</button>";
+                                  echo "</span>";
+                                } else {
+                                  echo "<input type='text' class='form-control file-upload-info' disabled placeholder='Ανέβασε Αρχείο'>";
+                                  echo "<span class='input-group-append'>";
+                                  echo "<button class='file-upload-browse btn btn-primary' value='uploadcourses' name='uploadcourses' type='button'>Upload File</button>";
+                                  echo "</span>";
+                                }
+                              } else {
+                                echo "<input type='text' class='form-control file-upload-info' disabled placeholder='Ανέβασε Αρχείο'>";
+                                echo "<span class='input-group-append'>";
+                                echo "<button class='file-upload-browse btn btn-primary' value='uploadcourses' name='uploadcourses' type='button'>Upload File</button>";
+                                echo "</span>";
+                              }
+                            ?>
                           </div>
                         </div>
                       </div>
@@ -589,7 +660,6 @@
                       {
                         echo "<button type='submit' class='btn btn-primary me-2' value='submit' formaction='../../../../php/submit-form.php'>Υποβολή</button>";
                         echo "<button type='submit' class='btn btn-light' value='save' formaction='../../../../php/save-form.php'>Προσωρινή Αποθήκευση</button>";
-
                       }
                       ?>
                   </form>

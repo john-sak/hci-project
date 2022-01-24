@@ -44,38 +44,45 @@
     $filename2 = NULL;
   }
 
-
-
-
-
   $id = intval($_SESSION['id']);
 
   if(isset($_GET['ID']))
   {
     $formID = intval($_GET['ID']);
-    $query = "DELETE FROM forms WHERE ID=$formID";
-    $result = $conn->query($query);
-    // check if query failed
-    if(!$result)  die($conn->error);
 
-    $query = "INSERT INTO forms (ID,eduLevel, status, userID, foreignDeptID,identification,diploma,certificate) VALUES ($formID,'$degree', 'saved', $id, $department,'$filename','$filename1','$filename2')";
-    $result = $conn->query($query);
-    // check if query failed
-    if(!$result)  die($conn->error);
+    if (isset($degree)) {
+      $query = "UPDATE forms SET eduLevel='$degree' WHERE ID=$formID";
+      $result = $conn->query($query);
+      if (!$result) die($conn->error);
+    }
 
-    if(!($_FILES['IDfile']['name'] == ""))      
+    if (isset($department)) {
+      $query = "UPDATE forms SET foreignDeptID=$department WHERE ID=$formID";
+      $result = $conn->query($query);
+      if (!$result) die($conn->error);
+    }
+
+    if (isset($filename)) {
+      $query = "UPDATE forms SET identification='$filename' WHERE ID=$formID";
+      $result = $conn->query($query);
+      if (!$result) die($conn->error);
       move_uploaded_file($tempName,$path);
+    }
 
-      
-    if(!($_FILES['degreefile']['name'] == ""))      
+    if (isset($filename1)) {
+      $query = "UPDATE forms SET diploma='$filename1' WHERE ID=$formID";
+      $result = $conn->query($query);
+      if (!$result) die($conn->error);
       move_uploaded_file($tempName1,$path1);
+    }
 
-    if(!($_FILES['courses']['name'] == ""))      
+    if (isset($filename2)) {
+      $query = "UPDATE forms SET certificate='$filename2' WHERE ID=$formID";
+      $result = $conn->query($query);
+      if (!$result) die($conn->error);
       move_uploaded_file($tempName2,$path2);
+    }
 
-
-  
-  
   }else{
 
     $query = "INSERT INTO forms (eduLevel, status, userID, foreignDeptID,identification,diploma,certificate) VALUES ('$degree', 'saved', $id, $department,'$filename','$filename1','$filename2')";
@@ -83,13 +90,13 @@
     // check if query failed
     if(!$result)  die($conn->error);
 
-    if(!($_FILES['IDfile']['name'] == ""))      
+    if(!($_FILES['IDfile']['name'] == ""))
       move_uploaded_file($tempName,$path);
 
-    if(!($_FILES['degreefile']['name'] == ""))      
+    if(!($_FILES['degreefile']['name'] == ""))
       move_uploaded_file($tempName1,$path1);
 
-    if(!($_FILES['courses']['name'] == ""))      
+    if(!($_FILES['courses']['name'] == ""))
       move_uploaded_file($tempName2,$path2);
   }
 
