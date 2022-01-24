@@ -169,17 +169,17 @@
                               if ($result->num_rows != 1) die(); // todo error message
                               $result = $result->fetch_row();
                               $conn->close();
-                              echo "<td>$name, $result[0]</td>";
+                              echo "<td><b>Τμήμα Ισοτιμίας</b><br><br>$name, $result[0]</td>";
                             } else if ($row[5] == "rejected") {
                               echo "<td><label class='badge badge-danger'>Απορρίφθηκε</label></td>";
-                              echo "<td>$row[6]</td>";
+                              echo "<td><b>Μήνυμα από Διαχειριστές</b><br><br>$row[6]</td>";
                             } else {
                               echo "<td><label class='badge badge-info'>Σε εκκρεμότητα</label></td>";
                               $conn = new mysqli($hn, $un, $dp, $db);
                               $query = "SELECT courseID FROM form_has_courses WHERE formID=$row[0]";
                               $result = $conn->query($query);
                               if ($result->num_rows == 0) die();
-                              echo "<td>";
+                              echo "<td><b>Επιπλέον Μαθήματα για Ισοτιμία</b><br><br>";
                               $count = 0;
                               while ($course = $result->fetch_row()) {
                                 $id = $course[0];

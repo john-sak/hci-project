@@ -212,7 +212,7 @@
                                 $id = $_GET['ID'];
                                 //get form from db
                                 $conn = new mysqli($hn, $un, $dp, $db);
-                                if ($conn->connect_error) die ($conn->connect_error);  
+                                if ($conn->connect_error) die ($conn->connect_error);
                                 $query = "SELECT * FROM forms WHERE ID=$id";
                                 $result = $conn->query($query);
                                 if (!$result) die ($conn->connect_error);
@@ -237,7 +237,7 @@
                                   echo "<option value='master'>Μεταπτυχιακό</option>";
                                   echo "<option value='phd'>Διδακτορικό</option>";
                                 }
-  
+
                               }
                               else {
                                 echo "<select id='deg' name='deg' class='form-control' onchange='this.form.submit()'>";
@@ -305,7 +305,7 @@
                                 {
                                   //get country saved
                                   $conn = new mysqli($hn, $un, $dp, $db);
-                                  if ($conn->connect_error) die ($conn->connect_error);  
+                                  if ($conn->connect_error) die ($conn->connect_error);
                                   $query = "SELECT * FROM foreigndepts WHERE ID=$formRow[8]";
                                   $depResult = $conn->query($query);
                                   $depRow = $depResult->fetch_row();
@@ -317,11 +317,11 @@
                                   $countryRow = $countryResult->fetch_row();
                                   $conn->close();
                                   while ($row = $result->fetch_row()) {
-                                    if ($row[0] == $countryRow[0]) 
+                                    if ($row[0] == $countryRow[0])
                                       echo "<option value='$row[0]' selected>$row[1]</option>";
                                     else
                                       echo "<option value='$row[0]'>$row[1]</option>";
-                                  }  
+                                  }
                                 }
                               }
                               else
@@ -354,7 +354,7 @@
                           <div class="col-sm-9">
                             <?php
                               echo "<select id='uni' name='uni' class='form-control' onchange='this.form.submit()'>";
-                              
+
                               if(isset($_POST['uni'])) $uniUp = 1;
 
                               if(isset($_GET['ID']) && !$uniUp)
@@ -370,7 +370,7 @@
                                 $conn->close();
                                 if(!$formRow[8])
                                 {
-                                  echo "<option value='none' selected>Επιλέξτε πρώτα χώρα</option>";                                
+                                  echo "<option value='none' selected>Επιλέξτε πρώτα χώρα</option>";
                                 }
                                 else
                                 {
@@ -401,7 +401,7 @@
                                   }
                                 }
                               }
-                              else 
+                              else
                               {
                                 $conn = new mysqli($hn, $un, $dp, $db);
                                 if ($conn->connect_error) die ($conn->connect_error);
@@ -434,7 +434,7 @@
                                         echo "<option value='$row[0]'>$row[1]</option>";
                                       }
                                     }
-                                  } 
+                                  }
                                 } else {
                                   echo "<option value='none' selected>Επιλέξτε πρώτα χώρα</option>";
                                 }
@@ -466,7 +466,7 @@
                               $conn->close();
                               if(!$formRow[8])
                               {
-                                echo "<option value='none' selected>Επιλέξτε πρώτα πανεπιστήμιο</option>";                                
+                                echo "<option value='none' selected>Επιλέξτε πρώτα πανεπιστήμιο</option>";
                               }
                               else
                               {
@@ -535,10 +535,23 @@
                         <label for="IDfile">Ταυτότητα ή Διαβατήριο*</label>
                         <input id="IDfile" type="file" name="IDfile" class="file-upload-default">
                         <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Ανέβασε Αρχείο">
-                          <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-primary" value="upload" name="uploadID" type="button">Upload File</button>
-                          </span>
+                          <?php
+                            if (isset($_GET['ID'])) {
+                              $id = $_GET['ID'];
+                              $conn = new mysqli($hn, $un, $dp, $db);
+                              if ($conn->connect_error) die ($conn->connect_error);
+                              $query = "SELECT identification FROM forms WHERE ID=$id";
+                              $result = $conn->query($query);
+                              if(!$result) die($conn->error);
+                              $row = $result->fetch_row();
+                              $conn->close();
+                            } else {
+                              echo "<input type='text' class='form-control file-upload-info' disabled placeholder='Ανέβασε Αρχείο'>";
+                              echo "<span class='input-group-append'>";
+                              echo "<button class='file-upload-browse btn btn-primary' value='upload' name='uploadID' type='button'>Upload File</button>";
+                              echo "</span>";
+                            }
+                          ?>
                         </div>
                       </div>
                       <div class="row">
