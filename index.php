@@ -74,7 +74,7 @@
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
             <a href="index.php" class="logo">
-              <img src="assets/images/doapat_logo_black.png" alt="">
+              <img src="assets/images/doapat_logo_black.png" alt="doatap logo">
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
