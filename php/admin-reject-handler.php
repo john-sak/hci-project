@@ -9,10 +9,11 @@
     if (!isset($_POST['reason'])) {
         ?>
         <script type="text/javascript">
-            window.location = "../User/template/pages/admin-approve/admin-approve.php";
+            window.location = "../User/template/pages/admin-application/admin-application.php";
             alert("Όλα τα πεδία είναι απαραίτητα για την έγκριση της αίτησης!");
         </script>
         <?php
+        exit();
     }
     //connect to db
     $conn = new mysqli($hn,$un,$dp,$db);
