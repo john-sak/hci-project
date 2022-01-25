@@ -87,43 +87,67 @@ INSERT INTO countries (ID, name) VALUES
 (0, "N/A"),
 (1, "France"),
 (2, "Germany"),
-(3, "Italy");
+(3, "Spain"),
+(4, "UK"),
+(5, "Italy");
 
 INSERT INTO greekUnis (ID, name) VALUES
 (0, "N/A"),
-(1, "EKPA"),
-(2, "APTH");
+(1, "University of Athens"),
+(2, "University of Thessaloniki"),
+(3, "University of Patras");
 
 INSERT INTO greekDepts (ID, name, uniID) VALUES
 (0, "N/A", 0),
-(1, "Modern Languages", 1),
-(2, "History", 1),
-(3, "Chemistry", 2);
+(1, "Chemistry", 1),
+(2, "Physics", 1),
+(3, "Mathematics", 1),
+(4, "Modern Languages", 2),
+(5, "History", 2),
+(6, "Social Work", 3);
 
 INSERT INTO courses (ID, name, deptID) VALUES
-(1, "Greek Language", 1),
-(2, "Organic Chemistry", 3),
-(3, "Modern History", 2);
+(1, "Greek Language", 4),
+(2, "Organic Chemistry", 1),
+(3, "Modern History", 5),
+(4, "Linear Algebra", 3),
+(5, "Quantum Physics", 2),
+(6, "Psychology", 6);
 
 INSERT INTO foreignUnis (ID, name, countryID) VALUES
 (0, "N/A", 0),
-(1, "Sorbonne", 1),
-(2, "Universität München", 2),
-(3, "Bologna", 3);
+(1, "Sorbonne University", 1),
+(2, "University of Munich", 2),
+(3, "University of Madrid", 3),
+(4, "University of Oxford", 4),
+(5, "University of Bologna", 5),
+(6, "University of Hamburg", 2),
+(7, "University of Cambridge", 4);
 
 INSERT INTO foreignDepts (ID, name, uniID) VALUES
 (0, "N/A", 0),
-(1, "Chemistry", 1),
-(2, "History", 2),
-(3, "Modern Languages", 3);
+(1, "Medicine", 1),
+(2, "Chemistry", 2),
+(3, "Accounting and Finance", 3),
+(4, "Mathematical Sciences", 4),
+(5, "School of Engineering", 5),
+(6, "Department of Social Sciences", 6),
+(7, "Architecture", 7);
 
 INSERT INTO users (ID, firstName, lastName, address, gender, birthDay, birthMonth, birthYear, email, phone, username, password, isAdmin) VALUES
-(1, "Acel", "Moulin ", "rue lecoubre 1", "m", 10, 11, 1999, "acel@gmail.com", "1234567890", "acel1", "12345", 0),
-(2, "Lukas", "Müller", "Hofgraben 12", "m", 8, 3, 1998, "Lukas@gmail.com", "9876543211", "Lukas", "12345", 0),
-(3, "Maria", "Nikolopoulou", "Athinas 10", "f", 3, 8, 1990, "maria@gmail.com", "1234567899", "maria", "12345", 1);
+(1, "Acel", "Moulin ", "Rue Lecoubre 1, Paris, France", "m", 10, 11, 1999, "acel@gmail.com", "1234567890", "acel99", "12345", 0),
+(2, "Lukas", "Muller", "Hofgraben 12, Munich, Germany", "m", 8, 3, 1998, "lukas98@gmail.com", "9876543211", "lukas", "12345", 0),
+(3, "Katerina", "Stamatiou", "Leoforos Kifissias 154, Athens, Greece", "f", 17, 2, 2000, "kate172@gmail.com", "1234567899", "kate2000", "12345", 0),
+(4, "Maria", "Papadopoulou", "Athinas 10, Athens, Greece", "f", 3, 8, 1990, "maria@gmail.com", "1238904567", "maria", "12345", 1),
+(5, "Kontantinos", "Nikolopoulos", "Solonos 24, Athens, Greece", "m", 6, 11, 1994, "konstnik@gmail.com", "5678901234", "konst94", "12345", 1);
 
 INSERT INTO forms (ID, eduLevel, identification, diploma, certificate, status, rejectReason, userID, foreignDeptID, greekDeptID) VALUES
-(1, "under", NULL, NULL, NULL, "saved", NULL, 1, 0, 0), -- 0 instead of NULL beacuse foreignDeptID and greekDeptID are foreign keys
-(2, "under", NULL, NULL, NULL, "accepted", NULL, 2, 2, 2);
+(1, "under", NULL, NULL, NULL, "rejected", "No files attatched", 1, 1, 0),
+(2, "under", NULL, NULL, NULL, "accepted", NULL, 1, 1, 1),
+(3, "master", NULL, NULL, NULL, "saved", NULL, 1, 0, 0),
+(4, "under", NULL, NULL, NULL, "accepted", NULL, 3, 6, 6),
+(5, "under", NULL, NULL, NULL, "saved", NULL, 2, 0, 0),
+(6, "under", NULL, NULL, NULL, "accepted", NULL, 2, 2, 2),
+(7, "under", NULL, NULL, NULL, "saved", NULL, 2, 6, 0);
 
 COMMIT;
