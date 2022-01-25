@@ -15,12 +15,9 @@
 <body class="form-v10">
 	<div class="header">
 		<h1>Δημιουργία Λογαριασμού</h1>
-		<p>Ήδη έχετε λογαριασμό; <a href="./sign-in.html">Σύνδεση</a></p>
-		<p><a href="../index.php">Επιστροφή στην αρχική σελίδα</a></p>
 	</div>
 	<div class="page-content">
 		<div class="form-v10-content">
-			<!-- todo action -->
 			<form class="form-detail" action="http://localhost/hci-project/php/sign-up-handler.php" method="post" id="sign-up-form">
 				<div class="form-left">
 					<h2>Προσωπικές Πληροφορίες</h2>
@@ -172,8 +169,12 @@
 						  	<span class="checkmark"></span>
 						</label>
 					</div>
-					<div class="form-row-last">
-						<input type="submit" name="register" class="register" value="Εγγραφή">
+					<div class="form-row-last" style="padding-right:50px">
+						<div style="display:flex; justify-content:space-between">
+							<input type="submit" name="register" class="register" style="margin-bottom:20px" value="Εγγραφή">
+							<input type="button" name="home" class="register" style="margin-bottom:20px; background-color:#8aa5ff" onclick="location.href='../index.php'" value="Αρχική">
+						</div>
+						<p style="color:white; padding-bottom:30px">Έχετε ήδη λογαριασμό; <a style="color:white" href="./sign-in.html">Σύνδεση</a></p>
 					</div>
 				</div>
 			</form>
