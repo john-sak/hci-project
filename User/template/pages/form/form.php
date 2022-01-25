@@ -548,7 +548,7 @@
                               if ($row[0] != "") {
                                 echo "<input type='text' class='form-control file-upload-info' readonly value='Δείτε το ήδη υπάρχον αρχείο ($row[0])'>";
                                 echo "<span class='input-group-append'>";
-                                echo "<a class='file-upload-browse btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
+                                echo "<a class='btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
                                 echo "</span>";
                                 echo "<input type='text' class='form-control file-upload-info' readonly value='Η ανεβάστε καινούργιο αρχείο'>";
                                 echo "<span class='input-group-append'>";
@@ -587,7 +587,7 @@
                                 if ($row[0] != "") {
                                   echo "<input type='text' class='form-control file-upload-info' readonly value='Δείτε το ήδη υπάρχον αρχείο ($row[0])'>";
                                   echo "<span class='input-group-append'>";
-                                  echo "<a class='file-upload-browse btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
+                                  echo "<a class='btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
                                   echo "</span>";
                                   echo "<input type='text' class='form-control file-upload-info' readonly value='Η ανεβάστε καινούργιο αρχείο'>";
                                   echo "<span class='input-group-append'>";
@@ -627,7 +627,7 @@
                                 if ($row[0] != "") {
                                   echo "<input type='text' class='form-control file-upload-info' readonly value='Δείτε το ήδη υπάρχον αρχείο ($row[0])'>";
                                   echo "<span class='input-group-append'>";
-                                  echo "<a class='file-upload-browse btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
+                                  echo "<a class='btn btn-primary' href='../../../../php/download.php?file=$row[0]'>Download File</a>";
                                   echo "</span>";
                                   echo "<input type='text' class='form-control file-upload-info' readonly value='Η ανεβάστε καινούργιο αρχείο'>";
                                   echo "<span class='input-group-append'>";
@@ -655,11 +655,13 @@
                         $id = $_GET['ID'];
                         echo "<button type='submit' class='btn btn-primary me-2' value='submit' formaction='../../../../php/submit-form.php?ID=$id'>Υποβολή</button>";
                         echo "<button type='submit' class='btn btn-light' value='save' formaction='../../../../php/save-form.php?ID=$id'>Προσωρινή Αποθήκευση</button>";
+                        echo "<button type='submit' class='btn btn-danger' value='delete' formaction='../../../../php/delete-form.php?ID=$id'>Διαγραφή Αίτησης</button>";
                       }
                       else
                       {
                         echo "<button type='submit' class='btn btn-primary me-2' value='submit' formaction='../../../../php/submit-form.php'>Υποβολή</button>";
                         echo "<button type='submit' class='btn btn-light' value='save' formaction='../../../../php/save-form.php'>Προσωρινή Αποθήκευση</button>";
+                        echo "<a class='btn btn-danger'  href='../user-application/user-application.php'>Ακύρωση</a>";
                       }
                       ?>
                   </form>

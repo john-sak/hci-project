@@ -128,7 +128,7 @@
       <?php
       exit();
     }
-    $filename1 = rand(1000,10000) . "-"  .$_FILES['IDfile']['name'];
+    $filename = rand(1000,10000) . "-"  .$_FILES['IDfile']['name'];
     $tempName = $_FILES['IDfile']['tmp_name'];
     $path = "../files/" . $filename;
 
