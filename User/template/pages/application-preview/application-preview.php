@@ -152,7 +152,7 @@
                                                 <label for="name" class="col-sm-3 col-form-label">Όνομα</label>
                                                 <div class="col-sm-9">
                                                     <?php
-                                                        echo "<input name='name' type='text' id='name' class='form-control' readonly value=$userRow[1]>";
+                                                        echo "<input name='name' type='text' id='name' class='form-control' readonly value='$userRow[1]'>";
                                                     ?>
                                                 </div>
                                             </div>
@@ -162,7 +162,7 @@
                                                 <label for="lname" class="col-sm-3 col-form-label">Επίθετο</label>
                                                 <div class="col-sm-9">
                                                     <?php
-                                                        echo "<input name='lname' id='lname' type='text'  class='form-control' readonly value=$userRow[2]>";
+                                                        echo "<input name='lname' id='lname' type='text'  class='form-control' readonly value='$userRow[2]'>";
                                                     ?>
                                                 </div>
                                             </div>
@@ -210,7 +210,7 @@
                                                 <label for="degree" class="col-sm-3 col-form-label">Επίπεδο Σπουδών</label>
                                                 <div class="col-sm-9">
                                                 <?php
-                                                    echo "<input name='degree'id='degree' type='text'  class='form-control' readonly value=$row[1]>";
+                                                    echo "<input name='degree'id='degree' type='text'  class='form-control' readonly value='$row[1]'>";
                                                 ?>
                                                 </div>
                                             </div>
@@ -220,7 +220,7 @@
                                                 <label for="country" class="col-sm-3 col-form-label">Χώρα</label>
                                                 <div class="col-sm-9">
                                                 <?php
-                                                    echo "<input type='text'  id='country' name='country' class='form-control' readonly value=$countryRow[1]>";
+                                                    echo "<input type='text'  id='country' name='country' class='form-control' readonly value='$countryRow[1]'>";
                                                 ?>
                                                 </div>
                                             </div>
@@ -232,7 +232,7 @@
                                                 <label for="univ" class="col-sm-3 col-form-label">Ίδρυμα</label>
                                                 <div class="col-sm-9">
                                                 <?php
-                                                    echo "<input type='text'  id='univ' name='univ' class='form-control' readonly value=$uniRow[1]>";
+                                                    echo "<input type='text'  id='univ' name='univ' class='form-control' readonly value='$uniRow[1]'>";
                                                 ?>
                                                 </div>
                                             </div>
@@ -242,7 +242,7 @@
                                                 <label for="dep" class="col-sm-3 col-form-label">Τμήμα</label>
                                                 <div class="col-sm-9">
                                                 <?php
-                                                    echo "<input type='text'  id='dep' name='dep' class='form-control' readonly value=$deptRow[1]>";
+                                                    echo "<input type='text'  id='dep' name='dep' class='form-control' readonly value='$deptRow[1]'>";
                                                 ?>
                                                 </div>
                                             </div>
