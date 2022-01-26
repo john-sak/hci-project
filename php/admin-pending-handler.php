@@ -15,17 +15,20 @@
     
     $id = intval($_POST['id']);
 
+    //find post values that are the courses selected
     foreach ($_POST as $key => $course) {
         if($key == 'id' OR $key == 'status') continue;
         $intcourse = intval($course);
         array_push($courses,$intcourse);
     }
     
+    //for each course selected insert into db
     foreach ($courses as $course) {
         $query = "INSERT INTO form_has_courses (formID,courseID) VALUES ('$id','$course')";
         $result = $conn->query($query);
         if (!$result) die($conn->error);
     }
+    //update the form to status pending
     $query = "UPDATE forms SET status='pending' WHERE ID=$id";
     $result = $conn->query($query);
     if (!$result) die($conn->error);

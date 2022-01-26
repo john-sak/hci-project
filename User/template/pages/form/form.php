@@ -34,7 +34,7 @@
 
 <body>
   <div class="container-scroller">
-    <!-- partial:../../partials/_navbar.html -->
+    <!--navbar -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <div class="me-3">
@@ -49,12 +49,10 @@
         </div>
       </div>
     </nav>
-    <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <div id="right-sidebar" class="settings-panel">
       </div>
-      <!-- partial -->
-      <!-- partial:../../partials/_sidebar.html -->
+      <!--sidebar -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
@@ -100,7 +98,6 @@
           </li>
         </ul>
       </nav>
-      <!-- partial -->
       <?php
         //init vars
         $degUp = 0;
@@ -217,6 +214,7 @@
                                 $result = $conn->query($query);
                                 if (!$result) die ($conn->connect_error);
                                 $row = $result->fetch_row();
+                                //create options based on the saved form
                                 echo "<select id='deg' name='deg' class='form-control' onchange='this.form.submit()'>";
                                 if ($row[1] == "under") {
                                     echo "<option value='under' selected>Προπτυχιακό</option>";
@@ -354,11 +352,13 @@
                           <div class="col-sm-9">
                             <?php
                               echo "<select id='uni' name='uni' class='form-control' onchange='this.form.submit()'>";
-
+                              
+                              //check if already an update happened
                               if(isset($_POST['uni'])) $uniUp = 1;
 
                               if(isset($_GET['ID']) && !$uniUp)
                               {
+                                //get saved form id
                                 $id = $_GET['ID'];
 
                                 $conn = new mysqli($hn, $un, $dp, $db);
@@ -387,7 +387,7 @@
                                   $countryResult = $conn->query($query);
                                   $countryRow = $countryResult->fetch_row();
                                   $cID = $countryRow[0];
-                                  //get the unis in the set country
+                                  //get the unis based on the country the saved uni is from
                                   $query = "SELECT * FROM foreignunis WHERE countryID=$cID";
                                   $unisCountryResult = $conn->query($query);
                                   if(!$unisCountryResult) die($conn->error);
@@ -403,6 +403,7 @@
                               }
                               else
                               {
+                                //create option based on the country selected
                                 $conn = new mysqli($hn, $un, $dp, $db);
                                 if ($conn->connect_error) die ($conn->connect_error);
                                 if (isset($_POST['cou']) && $_POST['cou'] != 'none') {
@@ -480,7 +481,7 @@
                                 $uniResult = $conn->query($query);
                                 $uniRow = $uniResult-> fetch_row();
                                 $uID = $uniRow[0];
-                                //get the deps in the set uni
+                                //get the deps based on the uni the saved dep is on
                                 $query = "SELECT * FROM foreigndepts WHERE uniID=$uID";
                                 $depsUniResult = $conn->query($query);
                                 if(!$depsUniResult) die($conn->error);
@@ -496,6 +497,7 @@
                             }
                             else
                             {
+                              //create options for departures based on the university selected already
                               $conn = new mysqli($hn, $un, $dp, $db);
                               if ($conn->connect_error) die ($conn->connect_error);
                               if (isset($_POST['uni']) && $_POST['uni'] != 'none') {
@@ -537,6 +539,8 @@
                         <div class="input-group col-xs-12">
                           <?php
                             if (isset($_GET['ID'])) {
+                              //if form is already saved give the option to download any document uploaaded or upload a new document 
+                              //same for all documents
                               $id = $_GET['ID'];
                               $conn = new mysqli($hn, $un, $dp, $db);
                               if ($conn->connect_error) die ($conn->connect_error);
@@ -669,13 +673,12 @@
               </div>
             </div>
         <!-- content-wrapper ends -->
-        <!-- partial:../../partials/_footer.html -->
+        <!--footer -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
           </div>
         </footer>
-        <!-- partial -->
       </div>
       <!-- main-panel ends -->
     </div>

@@ -32,7 +32,7 @@
 
 <body>
   <div class="container-scroller">
-    <!-- partial:../../partials/_navbar.html -->
+    <!--navbar -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <div class="me-3">
@@ -47,15 +47,12 @@
         </div>
       </div>
     </nav>
-    <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <div id="right-sidebar" class="settings-panel">
       </div>
-      <!-- partial -->
-      <!-- partial:../../partials/_sidebar.html -->
+      <!-- sidebar -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
-          <!-- <li class="nav-item nav-category">Forms and Datas</li> -->
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
               <i class="menu-icon mdi mdi-card-text-outline"></i>
@@ -97,39 +94,29 @@
               </ul>
             </div>
           </li>
-          <!-- <li class="nav-item nav-category">help</li>
-          <li class="nav-item">
-            <a class="nav-link" href="http://bootstrapdash.com/demo/star-admin2-free/docs/documentation.html">
-              <i class="menu-icon mdi mdi-file-document"></i>
-              <span class="menu-title">Documentation</span>
-            </a>
-          </li> -->
         </ul>
       </nav>
-      <!-- partial -->
       <?php
         $conn = new mysqli($hn, $un, $dp, $db);
         if ($conn->connect_error) die ($conn->connect_error);
         $id = $_SESSION['id'];
+        //get forms checked by an admin
         $query = "SELECT * FROM forms WHERE userID=$id AND (status='accepted' OR status='rejected' OR status='pending')";
         $resultDONE = $conn->query($query);
+        //get forms not submitted or not checked by admin yet
         $query = "SELECT * FROM forms WHERE userID=$id AND (status='waiting' OR status='saved')";
         $resultWAIT = $conn->query($query);
         $conn->close();
       ?>
-      <!--Data Should come from db.Maybe status be a link to open ex the form for process-->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
           <!-- 3 possible states: approved where the user's application is approved, pending when the user should pass courses,
-          rejected where the user can see why  -->
+          rejected where the user can see the reason  -->
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Ολοκληρωμένες Αιτήσεις</h4>
-                  <!-- <p class="card-description">
-                    Add class <code>.table</code>
-                  </p> -->
                   <div class="table-responsive">
                     <table class="table">
                       <thead>
@@ -158,15 +145,15 @@
                               $conn = new mysqli($hn, $un, $dp, $db);
                               $query = "SELECT name FROM greekDepts WHERE ID=$row[9]";
                               $result = $conn->query($query);
-                              if ($result->num_rows != 1) die(); // todo error message
+                              if ($result->num_rows != 1) die(); 
                               $name = $result->fetch_row() [0];
                               $query = "SELECT uniID from greekDepts WHERE ID=$row[9]";
                               $result = $conn->query($query);
-                              if ($result->num_rows != 1) die(); // todo error message
+                              if ($result->num_rows != 1) die();
                               $id = $result->fetch_row() [0];
                               $query = "SELECT name FROM greekUnis WHERE ID=$id";
                               $result = $conn->query($query);
-                              if ($result->num_rows != 1) die(); // todo error message
+                              if ($result->num_rows != 1) die();
                               $result = $result->fetch_row();
                               $conn->close();
                               echo "<td><b>Τμήμα Ισοτιμίας</b><br><br>$name, $result[0]</td>";
@@ -204,14 +191,12 @@
                 </div>
               </div>
             </div>
-            <!-- 2 possible states: pending where it can be edited, or submitted but not yet reviewed by admin where it can be previewed but not edited ,edit and preview should be links -->
+            <!-- 2 possible states: pending where it can be edited, 
+            or submitted but not yet reviewed by admin where it can be previewed but not edited -->
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Εκρεμμείς Αιτήσεις</h4>
-                  <!-- <p class="card-description">
-                    Add class <code>.table-hover</code>
-                  </p> -->
                   <div class="table-responsive">
                     <table class="table ">
                       <thead>
@@ -230,8 +215,10 @@
                             $degree = "Προπτυχιακό";
                           } else if ($row[1] == "master") {
                             $degree = "Μεταπτυχιακό";
-                          } else {
+                          } else if ($row[1] == "phd"){
                             $degree = "Διδακτορικό";
+                          } else {
+                            $degree = "";
                           }
                           echo "<td>$degree</td>";
                           echo "<td>$row[0]</td>";
@@ -251,7 +238,7 @@
                 </div>
               </div>
             </div>
-        <!-- partial:../../partials/_footer.html -->
+        <!-- footer -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>

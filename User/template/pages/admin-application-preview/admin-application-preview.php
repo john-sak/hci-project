@@ -34,7 +34,7 @@
 
 <body>
     <div class="container-scroller">
-        <!-- partial:../../partials/_navbar.html -->
+        <!-- navbar -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
                 <div class="me-3">
@@ -49,12 +49,10 @@
             </div>
             </div>
         </nav>
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <div id="right-sidebar" class="settings-panel">
             </div>
-            <!-- partial -->
-            <!-- partial:../../partials/_sidebar.html -->
+            <!-- sidebar -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
@@ -86,6 +84,7 @@
             <?php
             if(isset($_GET['ID']))
             {
+                //get id of the form that the admin wants to preview and then get data from db
                 $id = $_GET['ID'];
                 $conn = new mysqli($hn, $un, $dp, $db);
                 if ($conn->connect_error) die ($conn->connect_error);
@@ -311,7 +310,6 @@
                         <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
                     </div>
                 </footer>
-            <!-- partial -->
             </div>
             <!-- main-panel ends -->
         </div>

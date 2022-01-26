@@ -35,7 +35,7 @@
 
 <body>
     <div class="container-scroller">
-        <!-- partial:../../partials/_navbar.html -->
+        <!-- navbar -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
                 <div class="me-3">
@@ -50,11 +50,9 @@
                 </div>
             </div>
         </nav>
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <div id="right-sidebar" class="settings-panel">
             </div>
-            <!-- partial -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
@@ -83,8 +81,8 @@
                     </li>
                 </ul>
             </nav>
-            <!-- partial -->
             <?php
+                //get forms for the admin to see 
                 $conn = new mysqli($hn, $un, $dp, $db);
                 if ($conn->connect_error) die ($conn->connect_error);
                 $query = "SELECT * FROM forms WHERE status='waiting'";
@@ -111,6 +109,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
+                                                //for each form create a table row
                                                 while ($row = $result->fetch_row()) {
                                                     echo "<tr>";
                                                     if ($row[1] == "under") {

@@ -388,13 +388,20 @@
                     <h6>Ο ΟΡΓΑΝΙΣΜΟΣ</h6>
                     <h2>Ταυτότητα Οργανισμού</h2>
                     <p>
-                      Ο Διεπιστημονικός Οργανισμός Αναγνώρισης Τίτλων Ακαδημαϊκών και Πληροφόρησης (Δ.Ο.Α.Τ.Α.Π.) είναι ο επίσημος φορέας της Ελληνικής Δημοκρατίας για την ακαδημαϊκή αναγνώριση τίτλων που απονέμονται από εκπαιδευτικά ιδρύματα ανώτατης εκπαίδευσης της αλλοδαπής και για την έγκυρη πληροφόρηση για τα Ανώτατα Εκπαιδευτικά Ιδρύματα και τους τίτλους σπουδών στην Ελλάδα και το εξωτερικό.
+                      Ο Διεπιστημονικός Οργανισμός Αναγνώρισης Τίτλων Ακαδημαϊκών και Πληροφόρησης (Δ.Ο.Α.Τ.Α.Π.) είναι ο επίσημος φορέας της 
+                      Ελληνικής Δημοκρατίας για την ακαδημαϊκή αναγνώριση τίτλων που απονέμονται από εκπαιδευτικά ιδρύματα ανώτατης εκπαίδευσης 
+                      της αλλοδαπής και για την έγκυρη πληροφόρηση για τα Ανώτατα Εκπαιδευτικά Ιδρύματα και τους τίτλους σπουδών στην Ελλάδα και 
+                      το εξωτερικό.
                     </p>
                     <p>
-                      Ο Δ.Ο.Α.Τ.Α.Π. είναι Νομικό Πρόσωπο Δημοσίου Δικαίου, εποπτευόμενο από τον Υπουργό Παιδείας και Θρησκευμάτων, με έδρα την Αθήνα.
+                      Ο Δ.Ο.Α.Τ.Α.Π. είναι Νομικό Πρόσωπο Δημοσίου Δικαίου, εποπτευόμενο από τον Υπουργό Παιδείας και Θρησκευμάτων, με έδρα την 
+                      Αθήνα.
                     </p>
                     <p>
-                      Ο Οργανισμός στις διεθνείς του σχέσεις χρησιμοποιεί την επωνυμία “Hellenic National Academic Recognition and Information Center (Hellenic NARIC)”. Με την ονομασία αυτή είναι μέλος των δικτύων ENIC (European Network of National Information Centers) και NARIC (National Academic Recognition Information Centers). Αναφέρεται στο Υπουργείο Παιδείας & Θρησκευμάτων για τη Lisbon Recognition Convention (LRC) και ενημερώνει την UNESCO, το Council of Europe και την LRC Committee για θέματα της αρμοδιότητάς του.
+                      Ο Οργανισμός στις διεθνείς του σχέσεις χρησιμοποιεί την επωνυμία “Hellenic National Academic Recognition and Information 
+                      Center (Hellenic NARIC)”. Με την ονομασία αυτή είναι μέλος των δικτύων ENIC (European Network of National Information Centers)
+                      και NARIC (National Academic Recognition Information Centers). Αναφέρεται στο Υπουργείο Παιδείας & Θρησκευμάτων για τη Lisbon 
+                      Recognition Convention (LRC) και ενημερώνει την UNESCO, το Council of Europe και την LRC Committee για θέματα της αρμοδιότητάς του.
                     </p>
                   </div>
                 </div>
@@ -410,11 +417,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
   <div id="contact" class="contact-us section">
     <div class="container">
       <div class="row">
@@ -502,7 +504,6 @@
       <div class="row">
         <div class="col-lg-12">
           <p>Copyright © 2022 DigiMedia Co., Ltd. All Rights Reserved.
-          <br>Design: <a href="https://templatemo.com" target="_parent" title="free css templates">TemplateMo</a></p>
         </div>
       </div>
     </div>

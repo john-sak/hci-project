@@ -7,6 +7,7 @@
     session_start();
   }
 
+  //check if post fields are set
   if (!isset($_POST['deg']) || $_POST['deg'] == 'none' || !isset($_POST['dep']) || $_POST['dep'] == 'none') {
     ?>
       <script type="text/javascript">
@@ -28,8 +29,11 @@
 
   if(isset($_GET['ID']))
   {
+    //form is already saved
+
     $formID = intval($_GET['ID']);
     if ($_FILES['IDfile']['name'] != "") {
+      //new file is added
       $F1OK = 1;
       $F1RPLC = 1;
       $filename = rand(1000,10000) . "-"  . $_FILES['IDfile']['name'];
@@ -40,6 +44,7 @@
       $result = $conn->query($query);
       if (!$result) die($conn->error);
       if ($result->fetch_row()[0] == "") {
+        //file is not submitted before when the form was saved nor here so an error occurs 
         $F1OK = 0;
       } else {
         $F1OK = 1;
@@ -84,6 +89,7 @@
     }
 
     if (!$F1OK || !$F2OK || !$F3OK) {
+      //at least one file is not submitted
       ?>
       <script type="text/javascript">
       window.location = "../User/template/pages/user-application/user-application.php";
@@ -92,6 +98,7 @@
       <?php
       exit();
     } else {
+      //update form if is needed
       if ($F1RPLC) {
         $query = "UPDATE forms SET identification='$filename' WHERE ID=$formID";
         $result = $conn->query($query);
@@ -113,12 +120,13 @@
         move_uploaded_file($tempName2,$path2);
       }
     }
-
+    //update other values in form
     $query = "UPDATE forms SET eduLevel='$degree', status='waiting', foreignDeptID=$department WHERE ID=$formID";
     $result = $conn->query($query);
     if (!$result) die($conn->error);
 
   }else{
+    //new form created
     if ($_FILES['IDfile']['name'] == "" || $_FILES['degreefile']['name'] == "" || $_FILES['courses']['name'] == "") {
       ?>
       <script type="text/javascript">

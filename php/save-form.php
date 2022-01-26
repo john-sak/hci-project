@@ -12,6 +12,7 @@
 
   if($conn->connect_error) die($conn->connect_error);
 
+  //set parameters based on the post values
   if (isset($_POST['deg']) && $_POST['deg'] != 'none') {
     $degree = $_POST['deg'];
   } else {
@@ -44,12 +45,14 @@
     $filename2 = NULL;
   }
 
+  //get user id
   $id = intval($_SESSION['id']);
 
   if(isset($_GET['ID']))
   {
+    //form is already saved
     $formID = intval($_GET['ID']);
-
+    //update the form 
     if (isset($degree)) {
       $query = "UPDATE forms SET eduLevel='$degree' WHERE ID=$formID";
       $result = $conn->query($query);
@@ -84,7 +87,7 @@
     }
 
   }else{
-
+    //create new form
     $query = "INSERT INTO forms (eduLevel, status, userID, foreignDeptID,identification,diploma,certificate) VALUES ('$degree', 'saved', $id, $department,'$filename','$filename1','$filename2')";
     $result = $conn->query($query);
     // check if query failed

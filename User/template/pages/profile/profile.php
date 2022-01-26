@@ -33,7 +33,7 @@
 
 <body>
   <div class="container-scroller">
-    <!-- partial:../../partials/_navbar.html -->
+    <!--navbar -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <div class="me-3">
@@ -48,12 +48,10 @@
         </div>
       </div>
     </nav>
-    <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <div id="right-sidebar" class="settings-panel">
       </div>
-      <!-- partial -->
-      <!-- partial:../../partials/_sidebar.html -->
+      <!--sidebar -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
@@ -99,7 +97,6 @@
           </li>
         </ul>
       </nav>
-      <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
@@ -248,13 +245,12 @@
               </div>
             </div>
         <!-- content-wrapper ends -->
-        <!-- partial:../../partials/_footer.html -->
+        <!--footer -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
           </div>
         </footer>
-        <!-- partial -->
       </div>
       <!-- main-panel ends -->
     </div>

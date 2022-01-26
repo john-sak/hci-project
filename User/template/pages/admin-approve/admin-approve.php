@@ -33,7 +33,7 @@
 
 <body>
     <div class="container-scroller">
-        <!-- partial:../../partials/_navbar.html -->
+        <!--navbar -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
                 <div class="me-3">
@@ -48,11 +48,10 @@
                 </div>
             </div>
         </nav>
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <div id="right-sidebar" class="settings-panel">
             </div>
-            <!-- partial -->
+            <!-- sidebar -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
@@ -104,6 +103,7 @@
                                     <div class="form-group">
                                         <label for="uni">Ίδρυμα</label>
                                         <?php
+                                            //create select tag with options the greek universiies available in db
                                             echo "<select id='uni' name='uni' class='form-control' onchange='this.form.submit()'>";
                                             $conn = new mysqli($hn, $un, $dp, $db);
                                             if ($conn->connect_error) die ($conn->connect_error);
@@ -132,6 +132,7 @@
                                     <div class="form-group">
                                     <label for="dep">Τμήμα</label>
                                         <?php
+                                            //create select tag with options based on the univrsity choosed
                                             echo "<select id='dep' name='dep' class='form-control' onchange='this.form.submit()'>";
                                             $conn = new mysqli($hn, $un, $dp, $db);
                                             if ($conn->connect_error) die ($conn->connect_error);
